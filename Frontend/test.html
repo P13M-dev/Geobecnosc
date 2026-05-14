@@ -47,7 +47,9 @@
             background: #f4faf3;
             color: #1f3321;
             font-size: 0.9rem;
-            overflow-x: auto;
+            overflow: auto;
+            max-height: 50vh;
+
         }
         .panel button {
             width: 100%;
@@ -78,7 +80,7 @@
 
     <script>
         let map;
-        let currentRectangle;
+        let currentPolygon;
         let selectedBounds = null;
 
         function initMap() {
@@ -89,17 +91,17 @@
             });
 
             const drawingManager = new google.maps.drawing.DrawingManager({
-                drawingMode: google.maps.drawing.OverlayType.RECTANGLE,
+                drawingMode: google.maps.drawing.OverlayType.POLYGON,
                 drawingControl: true,
                 drawingControlOptions: {
                     position: google.maps.ControlPosition.TOP_CENTER,
-                    drawingModes: [google.maps.drawing.OverlayType.RECTANGLE],
+                    drawingModes: [google.maps.drawing.OverlayType.POLYGON],
                 },
-                rectangleOptions: {
+                polygonOptions: {
                     fillColor: '#10b981',
                     fillOpacity: 0.12,
                     strokeColor: '#10b981',
-                    strokeWeight: 2,
+                    strokeWeight: 4,
                     editable: true,
                     draggable: true,
                 },
@@ -107,39 +109,37 @@
 
             drawingManager.setMap(map);
 
-            google.maps.event.addListener(drawingManager, 'rectanglecomplete', (rectangle) => {
-                if (currentRectangle) {
-                    currentRectangle.setMap(null);
+            google.maps.event.addListener(drawingManager, 'polygoncomplete', (polygon) => {
+                if (currentPolygon) {
+                    currentPolygon.setMap(null);
                 }
-                currentRectangle = rectangle;
-                updateBounds(rectangle.getBounds());
+                currentPolygon = polygon;
+                updatePoints(polygon.getPath());
 
-                rectangle.addListener('bounds_changed', () => {
-                    updateBounds(rectangle.getBounds());
+                polygon.addListener('bounds_changed', () => {
+                    updatePoints(polygon.getPath());
                 });
             });
 
             document.getElementById('saveButton').addEventListener('click', () => {
-                if (!selectedBounds) return;
-                const payload = {
-                    north: selectedBounds.getNorthEast().lat(),
-                    east: selectedBounds.getNorthEast().lng(),
-                    south: selectedBounds.getSouthWest().lat(),
-                    west: selectedBounds.getSouthWest().lng(),
-                };
-                console.log('Zapisane współrzędne:', payload);
-                alert('Współrzędne zapisane. Sprawdź konsolę.');
-
+                if (!currentPolygon) return;
+                points = currentPolygon.getPath().getArray().map(latLng => ({
+                    lng: latLng.lng(), //x 
+                    lat: latLng.lat() // y
+                }));
+                alert('Współrzędne zapisane.');
+                
+                console.log('Zapisane współrzędne:', points); //PRZESYŁANIE
             });
 
             document.getElementById('drawButton').addEventListener('click', () => {
-                if (drawingManager.drawingMode == google.maps.drawing.OverlayType.RECTANGLE){
-                    drawingManager.drawingMode = null
+                if (drawingManager.getDrawingMode() == google.maps.drawing.OverlayType.POLYGON){
+                    drawingManager.setDrawingMode(null)
                     drawingManager.setMap(map);
                     document.getElementById('drawButton').innerHTML = "Włącz rysowanie"
                     
                 }else{
-                    drawingManager.drawingMode = google.maps.drawing.OverlayType.RECTANGLE
+                    drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON)
                     drawingManager.setMap(map);
                     document.getElementById('drawButton').innerHTML = "Włącz przeciąganie"
                 }
@@ -147,20 +147,22 @@
             });
         }
 
-        function updateBounds(bounds) {
-            selectedBounds = bounds;
-            const ne = bounds.getNorthEast();
-            const sw = bounds.getSouthWest();
-            const coords = {
-                north: Number(ne.lat().toFixed(6)),
-                east: Number(ne.lng().toFixed(6)),
-                south: Number(sw.lat().toFixed(6)),
-                west: Number(sw.lng().toFixed(6)),
-            };
-            document.getElementById('coords').textContent = JSON.stringify(coords, null, 2);
+        function updatePoints(path) {
+            output = ""
+            points = path.getArray().map(latLng => ({
+                lng: latLng.lng(), //x 
+                lat: latLng.lat() // y
+            }));
+            for (let i = 0;i < points.length;i++){
+                output+="Punkt " + (i+1) + ":\n"
+                output += "lng: "+points[i].lng + "\n"
+                output += "lat: "+points[i].lat + "\n"
+            }
+            
+            document.getElementById('coords').textContent = output
             document.getElementById('saveButton').disabled = false;
         }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA8L2iWZ6PsNLIoXo-R8HTHDU3L97E6DA&libraries=drawing&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVnE8Dn_vS6sFgxYgzxmoQcdqYlVMH_TA&libraries=drawing&callback=initMap" async defer></script>
 </body>
 </html>
