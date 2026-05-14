@@ -1,0 +1,39 @@
+services:
+  web-geobecnosc:
+    build: ./web
+    ports:
+      - "80:80"
+    volumes:
+      - ../Frontend:/Frontend
+      - ../Backend:/Backend
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    environment:
+      TZ: Europe/Warsaw
+    depends_on:
+      - php-geobecnosc
+
+  php-geobecnosc:
+    build: ./php
+    environment:
+      TZ: Europe/Warsaw
+    volumes:
+      - ../Frontend:/Frontend
+      - ../Backend:/Backend
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    restart: always
+
+  db-geobecnosc:
+    build: ./db
+    environment:
+      MARIADB_DATABASE: p13m
+      MARIADB_USER: User
+      MARIADB_PASSWORD: D"F"S0gf6TmvAA,;RX%5:,uQ&Ol0Xb:(d.RfhE|=PfvT~;rC=JSrpdkQ8e%GTPL=
+      MARIADB_ROOT_PASSWORD: uvG!lBWU"DD:AP|aW0<ylOO^:Dmyh:^oF[jbn|KWCMC7ZMaie87hnL7`"I0VM#GW
+      TZ: Europe/Warsaw
+    volumes:
+      - ./db/geobecnosc.sql:/docker-entrypoint-initdb.d/init.sql
+      - db_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  db_data:
