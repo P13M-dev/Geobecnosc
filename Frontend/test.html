@@ -70,12 +70,15 @@
 </head>
 <body>
     <div id="map"></div>
+
     <div class="panel">
         <h1>Wybierz obszar</h1>
         <p>Narysuj prostokąt na mapie, aby wybrać współrzędne. Następnie naciśnij "Zapisz współrzędne".</p>
         <pre id="coords">Brak wybranego obszaru.</pre>
-        <button id="drawButton" >Włącz przeciąganie</button>
+        <!-- <button id="drawButton" >Włącz przeciąganie</button> -->
         <button id="saveButton" disabled>Zapisz współrzędne</button>
+        <button id="backButton" onclick="window.location.href='dashboard.html'" >Powrót</button>
+
     </div>
 
     <script>
@@ -132,19 +135,19 @@
                 console.log('Zapisane współrzędne:', points); //PRZESYŁANIE
             });
 
-            document.getElementById('drawButton').addEventListener('click', () => {
-                if (drawingManager.getDrawingMode() == google.maps.drawing.OverlayType.POLYGON){
-                    drawingManager.setDrawingMode(null)
-                    drawingManager.setMap(map);
-                    document.getElementById('drawButton').innerHTML = "Włącz rysowanie"
+            // document.getElementById('drawButton').addEventListener('click', () => {
+            //     if (drawingManager.getDrawingMode() == google.maps.drawing.OverlayType.POLYGON){
+            //         drawingManager.setDrawingMode(null)
+            //         drawingManager.setMap(map);
+            //         document.getElementById('drawButton').innerHTML = "Włącz rysowanie"
                     
-                }else{
-                    drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON)
-                    drawingManager.setMap(map);
-                    document.getElementById('drawButton').innerHTML = "Włącz przeciąganie"
-                }
+            //     }else{
+            //         drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON)
+            //         drawingManager.setMap(map);
+            //         document.getElementById('drawButton').innerHTML = "Włącz przeciąganie"
+            //     }
 
-            });
+            // });
         }
 
         function updatePoints(path) {
