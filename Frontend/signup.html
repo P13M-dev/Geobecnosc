@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejestracja - Geobecność</title>
+    <link rel="stylesheet" href="styl.css">
+    <style>
+        .form-container {
+            max-width: 400px;
+            margin: 60px auto;
+            padding: 32px;
+            border-radius: 16px;
+            background: #f6fbf6;
+            border: 1px solid #d9edd6;
+            box-shadow: 0 12px 32px rgba(29, 78, 43, 0.1);
+        }
+        .form-container h2 {
+            margin: 0 0 24px;
+            text-align: center;
+            color: #14532d;
+            font-size: 1.8rem;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #334338;
+            font-weight: 600;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #c9e3cc;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #ffffff;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #16a34a;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-submit:hover {
+            background: #15803d;
+        }
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .form-footer a {
+            color: #16a34a;
+            text-decoration: none;
+        }
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="form-container">
+            <h2>Utwórz konto</h2>
+            <!-- TU MASZ PIOTRZE SIGNUP FORM -->
+            <form id="signupForm" action="dashboard.html">
+                <div class="form-group">
+                    <label for="name">Imię i nazwisko</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Hasło</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Potwierdź hasło</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn-submit">Utwórz konto</button>
+            </form>
+            <div class="form-footer">
+                <p>Masz już konto? <a href="login.html">Zaloguj się</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    </script>
+</body>
+</html>
