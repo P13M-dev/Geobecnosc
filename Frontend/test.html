@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zaznaczanie obszaru Google Maps</title>
+    <link rel="stylesheet" href="styl.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background: #eef3ea;
+        }
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        .panel {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 5;
+            width: min(360px, calc(100% - 32px));
+            padding: 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid #c9e3cc;
+            box-shadow: 0 18px 45px rgba(46, 125, 50, 0.12);
+        }
+        .panel h1 {
+            margin: 0 0 12px;
+            font-size: 1.2rem;
+            color: #1f3c2c;
+        }
+        .panel p {
+            margin: 0 0 14px;
+            color: #3c523f;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .panel pre {
+            margin: 0 0 14px;
+            padding: 12px;
+            border-radius: 12px;
+            background: #f4faf3;
+            color: #1f3321;
+            font-size: 0.9rem;
+            overflow: auto;
+            max-height: 50vh;
+
+        }
+        .panel button {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 999px;
+            background: #16a34a;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 2vh;
+        }
+        .panel button:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div class="panel">
+        <h1>Wybierz obszar</h1>
+        <p>Narysuj prostokąt na mapie, aby wybrać współrzędne. Następnie naciśnij "Zapisz współrzędne".</p>
+        <pre id="coords">Brak wybranego obszaru.</pre>
+        <button id="drawButton" >Włącz przeciąganie</button>
+        <button id="saveButton" disabled>Zapisz współrzędne</button>
+    </div>
+
+    <script>
+        let map;
+        let currentPolygon;
+        let selectedBounds = null;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 52.237049, lng: 21.017532 },
+                zoom: 12,
+                mapTypeId: 'roadmap',
+            });
+
+            const drawingManager = new google.maps.drawing.DrawingManager({
+                drawingMode: google.maps.drawing.OverlayType.POLYGON,
+                drawingControl: true,
+                drawingControlOptions: {
+                    position: google.maps.ControlPosition.TOP_CENTER,
+                    drawingModes: [google.maps.drawing.OverlayType.POLYGON],
+                },
+                polygonOptions: {
+                    fillColor: '#10b981',
+                    fillOpacity: 0.12,
+                    strokeColor: '#10b981',
+                    strokeWeight: 4,
+                    editable: true,
+                    draggable: true,
+                },
+            });
+
+            drawingManager.setMap(map);
+
+            google.maps.event.addListener(drawingManager, 'polygoncomplete', (polygon) => {
+                if (currentPolygon) {
+                    currentPolygon.setMap(null);
+                }
+                currentPolygon = polygon;
+                updatePoints(polygon.getPath());
+
+                polygon.addListener('bounds_changed', () => {
+                    updatePoints(polygon.getPath());
+                });
+            });
+
+            document.getElementById('saveButton').addEventListener('click', () => {
+                if (!currentPolygon) return;
+                points = currentPolygon.getPath().getArray().map(latLng => ({
+                    lng: latLng.lng(), //x 
+                    lat: latLng.lat() // y
+                }));
+                alert('Współrzędne zapisane.');
+                
+                console.log('Zapisane współrzędne:', points); //PRZESYŁANIE
+            });
+
+            document.getElementById('drawButton').addEventListener('click', () => {
+                if (drawingManager.getDrawingMode() == google.maps.drawing.OverlayType.POLYGON){
+                    drawingManager.setDrawingMode(null)
+                    drawingManager.setMap(map);
+                    document.getElementById('drawButton').innerHTML = "Włącz rysowanie"
+                    
+                }else{
+                    drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON)
+                    drawingManager.setMap(map);
+                    document.getElementById('drawButton').innerHTML = "Włącz przeciąganie"
+                }
+
+            });
+        }
+
+        function updatePoints(path) {
+            output = ""
+            points = path.getArray().map(latLng => ({
+                lng: latLng.lng(), //x 
+                lat: latLng.lat() // y
+            }));
+            for (let i = 0;i < points.length;i++){
+                output+="Punkt " + (i+1) + ":\n"
+                output += "lng: "+points[i].lng + "\n"
+                output += "lat: "+points[i].lat + "\n"
+            }
+            
+            document.getElementById('coords').textContent = output
+            document.getElementById('saveButton').disabled = false;
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVnE8Dn_vS6sFgxYgzxmoQcdqYlVMH_TA&libraries=drawing&callback=initMap" async defer></script>
+</body>
+</html>

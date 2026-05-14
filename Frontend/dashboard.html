@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Geobecność</title>
+    <link rel="stylesheet" href="styl.css">
+    <style>
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #d8edd6;
+            margin-bottom: 32px;
+        }
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: #14532d;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .user-info span {
+            font-weight: 600;
+            color: #1f2f24;
+        }
+        .btn-logout {
+            background: #dc2626;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .dashboard-card {
+            padding: 24px;
+            border-radius: 16px;
+            background: #f6fbf6;
+            border: 1px solid #d9edd6;
+            box-shadow: 0 8px 24px rgba(29, 78, 43, 0.08);
+        }
+        .dashboard-card h3 {
+            margin: 0 0 16px;
+            font-size: 1.4rem;
+            color: #14532d;
+        }
+        .dashboard-card p {
+            margin: 0 0 20px;
+            color: #334338;
+            line-height: 1.6;
+        }
+        .dashboard-card button {
+            background: #16a34a;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .dashboard-card button:hover {
+            background: #15803d;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <header class="dashboard-header">
+            <h1>GEOBECNOŚĆ</h1>
+            <div class="user-info">
+                <span>Witaj, [Nazwa Użytkownika]</span>
+                <button class="btn-logout">Wyloguj się</button>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            <section class="dashboard-card">
+                <h3>Sprawdź obecność</h3>
+                <p></p>
+                <button onclick="alert('weewoo')">Zobacz rekordy</button>
+            </section>
+
+            <section class="dashboard-card">
+                <h3>Dodaj obszar</h3>
+                <p></p>
+                <button onclick="window.location.href='test.html'">Oznacz na mapie</button>
+            </section>
+
+            <section class="dashboard-card">
+                <h3>Ustawienia</h3>
+                <p></p>
+                <button onclick="alert('weewoo')">Edytuj ustawienia</button>
+            </section>
+
+        </main>
+    </div>
+
+    <footer>
+        <p>Stworzone przez Piotra Migasa, Bartłomieja Senatora i Dominika Chmielowca</p>
+    </footer>
+</body>
+</html>
