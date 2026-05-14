@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan lekcji - Geobecność</title>
+    <link rel="stylesheet" href="../styl.css">
+    <style>
+        body { margin: 0; background: #eef3ea; font-family: Arial, sans-serif; }
+        .page-shell { max-width: 760px; margin: 40px auto; padding: 32px; background: #f6fbf6; border: 1px solid #d9edd6; border-radius: 20px; box-shadow: 0 14px 35px rgba(29, 78, 43, 0.08); }
+        h1 { margin: 0 0 18px; color: #14532d; }
+        .field { margin-bottom: 24px; }
+        .field label { display: block; margin-bottom: 8px; font-weight: 600; color: #334338; }
+        .field input, .field select { width: 100%; padding: 12px 14px; border: 1px solid #c9e3cc; border-radius: 10px; }
+        .field input:focus, .field select:focus { outline: none; border-color: #16a34a; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+        th, td { border: 1px solid #d9edd6; padding: 12px; text-align: center; background: #ffffff; }
+        th { background: #e6f4e6; color: #14532d; }
+        .cell-input { width: 100%; border: 1px solid #c9e3cc; border-radius: 8px; padding: 8px; }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; background: #16a34a; color: white; font-weight: 700; cursor: pointer; }
+        .btn:hover { background: #15803d; }
+        .nav { margin-top: 20px; text-align: center; }
+        .nav a { color: #16a34a; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <h1>Dodaj plan lekcji</h1>
+        <form id="scheduleForm">
+            <div class="field">
+                <label for="scheduleClass">Do której klasy należy</label>
+                <input type="text" id="scheduleClass" required>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Godzina / Dzień</th>
+                        <th>Poniedziałek</th>
+                        <th>Wtorek</th>
+                        <th>Środa</th>
+                        <th>Czwartek</th>
+                        <th>Piątek</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>1.</th>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                    </tr>
+                    <tr>
+                        <th>2.</th>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                    </tr>
+                    <tr>
+                        <th>3.</th>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                    </tr>
+                    <tr>
+                        <th>4.</th>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                    </tr>
+                    <tr>
+                        <th>5.</th>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                    </tr>
+                    <tr>
+                        <th>6.</th>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                    </tr>
+                    <tr>
+                        <th>7.</th>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                    </tr>
+                    <tr>
+                        <th>8.</th>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                    </tr>
+                    <tr>
+                        <th>9.</th>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn">Zapisz plan</button>
+        </form>
+        <div class="nav"><a href="../dashboard-admin.html">Powrót do panelu</a></div>
+    </div>
+    <script>
+        document.getElementById('scheduleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Plan lekcji zapisany (tymczasowo).');
+            window.location.href = '../dashboard-admin.html';
+        });
+    </script>
+</body>
+</html>
