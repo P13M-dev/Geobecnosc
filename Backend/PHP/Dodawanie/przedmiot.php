@@ -1,7 +1,5 @@
 <?php
 
-require_once "api.php";
-
 session_start();
 
 if(!isAdmin()) die;

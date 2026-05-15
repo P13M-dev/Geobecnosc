@@ -23,7 +23,9 @@ if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="")
     require "{$root}/scriptAuthCodes.php";
 
     switch($script){
-        case "dodajKlase":              require "$root/Dodawanie/dodajKlase.php";break;
+        case "dodajKlase":              require "$root/Dodawanie/klase.php";break;
+        case "dodajPrzedmiot":          require "$root/Dodawanie/przedmiot.php";break;
+        case "wybierzPrzedmioty":       require "$root/Wybieranie/przedmioty.php";break;
         default:                        require "/Backend/404.html";break;
     };
 

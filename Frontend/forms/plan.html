@@ -134,6 +134,7 @@
         document.getElementById('scheduleForm').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('Plan lekcji zapisany (tymczasowo).');
+            przedmioty = zapytajSerwer("wybierzPrzedmioty");
             document.querySelector("tbody tr").forEach(element => {
                 element.querySelector("td").forEach(element =>{
                     
