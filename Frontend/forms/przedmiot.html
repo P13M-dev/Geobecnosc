@@ -33,10 +33,13 @@
         <div class="nav"><a href="../dashboard-admin.html">Powrót do panelu</a></div>
     </div>
     <script>
-        document.getElementById('subjectForm').addEventListener('submit', function(e) {
+        document.getElementById('subjectForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            alert('Przedmiot zapisany (tymczasowo).');
-            window.location.href = '../dashboard-admin.html';
+            let tresc = new URLSearchParams,
+            przedmiot = document.getElementById("subjectName").value;
+            tresc.append("przedmiot",przedmiot);
+            console.log(await zapytajSerwer("dodajPrzedmiot",tresc));
+            //window.location.href = '../dashboard-admin.html';
         });
     </script>
 </body>

@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-
 if(!isAdmin()) die;
 if(!isset($_POST["przedmiot"])) die;
 

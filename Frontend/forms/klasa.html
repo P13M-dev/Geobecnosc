@@ -35,10 +35,10 @@
     <script>
         document.getElementById('classForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            let body = new URLSearchParams,
+            let tresc = new URLSearchParams,
             klasa = document.getElementById("className").value;
-            body.append("klasa",klasa);
-            zapytajSerwer("dodajKlase",body);
+            tresc.append("klasa",klasa);
+            zapytajSerwer("dodajKlase",tresc);
             window.location.href = '../dashboard-admin.html';
         });
     </script>

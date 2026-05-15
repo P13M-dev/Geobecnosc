@@ -131,15 +131,23 @@
         <div class="nav"><a href="../dashboard-admin.html">Powrót do panelu</a></div>
     </div>
     <script>
-        document.getElementById('scheduleForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Plan lekcji zapisany (tymczasowo).');
+        function zaladujPrzedmioty(){
             przedmioty = JSON.parse(zapytajSerwer("wybierzPrzedmioty"));
+
+            select = "<select>"
+            przedmioty.foreach(przedmiot =>{select += `<option value="${przedmiot.id}">${przedmiot.nazwa}</option>`});
+            select += "</select>";
+
             document.querySelector("tbody tr").forEach(element => {
                 element.querySelector("td").forEach(element =>{
-                    
+                    element.innerHTML = select;
                 });
             });
+
+        }
+        
+        document.getElementById('scheduleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             window.location.href = '../dashboard-admin.html';
         });
     </script>
