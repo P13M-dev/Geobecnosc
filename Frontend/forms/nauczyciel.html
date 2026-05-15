@@ -42,18 +42,27 @@
             </div>
             <div class="field">
                 <label for="teacherSubjects">Przedmiot</label>
-                <input type="text" id="teacherSubjects" required>
+                <select id="teacherSubjects" required></select>
             </div>
             <button type="submit" class="btn">Zapisz nauczyciela</button>
         </form>
         <div class="nav"><a href="../dashboard-admin.html">Powrót do panelu</a></div>
     </div>
     <script>
+        function zaladujNauczycieli(){
+            let nauczyciele = JSON.parse(zapytajSerwer("wybierzNauczycieli")),
+            select = document.getElementById("teacherSubjects");
+            nauczyciele.forEach(nauczyciel => {
+                select.addEl
+            });
+        }
+
         document.getElementById('teacherForm').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('Nauczyciel zapisany (tymczasowo).');
             window.location.href = '../dashboard-admin.html';
         });
+        zaladujNauczycieli();
     </script>
 </body>
 </html>

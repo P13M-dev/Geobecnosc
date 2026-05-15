@@ -15,20 +15,21 @@ function isTeacher(){
 function isStudent(){
     
 }
+
 if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="") {
     
     $script = $_SERVER["HTTP_AUTHORIZATION"];
     $root = "/Backend/PHP";
     
     switch($script){
-        case "dodajKlase":              require "$root/Dodawanie/klasa.php";break;
-        case "dodajUcznia":          require "$root/Dodawanie/uczen.php";break;
-        case "dodajPrzedmiot":          require "$root/Dodawanie/przedmiot.php";break;
-        case "dodajNauczyciela":          require "$root/Dodawanie/nauczyciel.php";break;
-        case "wybierzPrzedmioty":       require "$root/Wybieranie/przedmioty.php";break;
-        default:                        require "/Backend/404.html";break;
+        case "dodajKlase":                  require "$root/Dodawanie/klasa.php";break;
+        case "dodajUcznia":                 require "$root/Dodawanie/uczen.php";break;
+        case "dodajPrzedmiot":              require "$root/Dodawanie/przedmiot.php";break;
+        case "dodajNauczyciela":            require "$root/Dodawanie/nauczyciel.php";break;
+        case "wybierzNauczycieli":          require "$root/Wybieranie/nauczyciel.php";break;  
+        case "wybierzPrzedmioty":           require "$root/Wybieranie/przedmioty.php";break;
+        default:                            require "/Backend/404.html";break;
     };
-
 } else {
     require "/Backend/404.html";
 };
