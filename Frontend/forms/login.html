@@ -96,7 +96,7 @@
             
             let tresc = new URLSearchParams,
             email = document.getElementById("email").value;
-            haslo = document.getElementById("haslo").value;
+            haslo = document.getElementById("password").value;
             tresc.append("email",email);
             tresc.append("haslo",haslo);
             console.log(await zapytajSerwer("zalogujNauczyciel",tresc));
