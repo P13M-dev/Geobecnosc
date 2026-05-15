@@ -2,10 +2,10 @@
 
 session_start();
 
-if(!isAdmin()) die;
+//if(!isAdmin()) die;
 
 $db = Database::get();
 
-echo json_encode($db->query("SELECT id,imie,nazwisko FROM nauczyciele"));
+echo json_encode($db->query("SELECT id,imie,nazwisko,email FROM nauczyciele"));
 
 ?>

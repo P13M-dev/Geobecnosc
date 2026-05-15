@@ -49,20 +49,37 @@
         <div class="nav"><a href="../dashboard-admin.html">Powrót do panelu</a></div>
     </div>
     <script>
-        function zaladujNauczycieli(){
-            let nauczyciele = JSON.parse(zapytajSerwer("wybierzNauczycieli")),
+        async function zaladujPrzedmioty(){
+            let przedmioty = await zapytajSerwer("wybierzPrzedmioty");
+            console.log(przedmioty);
+            przedmioty = JSON.parse(przedmioty);
             select = document.getElementById("teacherSubjects");
-            nauczyciele.forEach(nauczyciel => {
-                select.addEl
+            przedmioty.forEach(przedmiot => {
+                let option = document.createElement("option");
+                option.value = przedmiot.id;
+                option.innerText = przedmiot.nazwa;
+                select.appendChild(option);
             });
         }
 
-        document.getElementById('teacherForm').addEventListener('submit', function(e) {
+        document.getElementById('teacherForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            let tresc = new URLSearchParams,
+            imie = document.getElementById("teacherName").value;
+            nazwisko = document.getElementById("teacherSurname").value;
+            email = document.getElementById("teacherEmail").value;
+            haslo = document.getElementById("teacherPassword").value;
+            przedmiot = document.getElementById("teacherSubjects").value;
+            tresc.append("imie",imie);
+            tresc.append("nazwisko",nazwisko);
+            tresc.append("email",email);
+            tresc.append("haslo",haslo);
+            tresc.append("przedmiot",przedmiot);
+            console.log(await zapytajSerwer("dodajNauczyciela",tresc));
             alert('Nauczyciel zapisany (tymczasowo).');
-            window.location.href = '../dashboard-admin.html';
+            //window.location.href = '../dashboard-admin.html';
         });
-        zaladujNauczycieli();
+        zaladujPrzedmioty();
     </script>
 </body>
 </html>
