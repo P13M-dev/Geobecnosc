@@ -26,7 +26,7 @@ ALTER TABLE `nauczyciele` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --    `przedmiot` int(11) -- rel
 --) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE `uczeniowie` (
+CREATE TABLE `uczniowie` (
     `id` int(11) NOT NULL,
     `imie` varchar(50),
     `nazwisko` varchar(50),
@@ -34,13 +34,12 @@ CREATE TABLE `uczeniowie` (
     `hash_hasla` varchar(100),
     `klasa` int(11) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `uczeniowie` ADD PRIMARY KEY (`id`);
-ALTER TABLE `uczeniowie` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `uczniowie` ADD PRIMARY KEY (`id`);
+ALTER TABLE `uczniowie` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 CREATE TABLE `lekcje` (
     `id` int(11) NOT NULL,
-    `godzinaRozpoczecia` int(11),
-    `godzinaZakonczenia` int(11),
+    `godzina` int(11),
     `przedmiot` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 ALTER TABLE `lekcje` ADD PRIMARY KEY (`id`);
@@ -55,7 +54,9 @@ ALTER TABLE `przedmioty` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 CREATE TABLE `godziny` (
     `id` int(11) NOT NULL,
-    `godzina` TIME
+    `godzina` TIME,
+    `dlugosc` int(11),
+    `liczba_porzadkowa` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 ALTER TABLE `godziny` ADD PRIMARY KEY (`id`);
 ALTER TABLE `godziny` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
@@ -78,3 +79,19 @@ CREATE TABLE `obecnosci_na_lekcji` (
 ALTER TABLE `obecnosci_na_lekcji` ADD PRIMARY KEY (`id`);
 ALTER TABLE `obecnosci_na_lekcji` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
+
+CREATE TABLE `dni` (
+    `id` int(11),
+    `dzien` DATE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+ALTER TABLE `dni` ADD PRIMARY KEY (`id`);
+ALTER TABLE `dni` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+ALTER TABLE `uczniowie` ADD CONSTRAINT `fk_uczen_klasa` FOREIGN KEY (`klasa`) REFERENCES `klasy`(`id`);
+ALTER TABLE `lekcje` ADD CONSTRAINT `fk_lekcja_godzina` FOREIGN KEY (`godzina`) REFERENCES `godziny`(`id`);
+ALTER TABLE `lekcje` ADD CONSTRAINT `fk_lekcja_przedmiot` FOREIGN KEY (`przedmiot`) REFERENCES `przedmioty`(`id`);
+ALTER TABLE `obecnosci_w_dniu` ADD CONSTRAINT `fk_ob_dzien` FOREIGN KEY (`dzien`) REFERENCES `dni`(`id`);
+ALTER TABLE `obecnosci_w_dniu` ADD CONSTRAINT `fk_ob_uczen` FOREIGN KEY (`uczen`) REFERENCES `uczniowie`(`id`);
+ALTER TABLE `obecnosci_na_lekcji` ADD CONSTRAINT `fk_ol_lekcja` FOREIGN KEY (`lekcja`) REFERENCES `lekcje`(`id`);
+ALTER TABLE `obecnosci_na_lekcji` ADD CONSTRAINT `fk_ol_obecnosc` FOREIGN KEY (`obecnosc`) REFERENCES `obecnosci_w_dniu`(`id`);

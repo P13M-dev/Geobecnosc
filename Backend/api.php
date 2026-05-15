@@ -28,8 +28,8 @@ if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="")
         case "dodajNauczyciela":            require "$root/Dodawanie/nauczyciel.php";break;
         case "wybierzNauczycieli":          require "$root/Wybieranie/nauczyciele.php";break;  
         case "wybierzPrzedmioty":           require "$root/Wybieranie/przedmioty.php";break;
-        case "obecnosci":                   require "$root/Wybieranie/obecnosci.php";break;
         case "wybierzKlasy":                require "$root/Wybieranie/klasy.php";break;
+        case "obecnosci":                   require "$root/Wybieranie/obecnosci.php";break;
         case "zalogujNauczyciel":           require "$root/Logowanie/nauczyciel.php";break;
         default:                            require "/Backend/404.html";break;
     };

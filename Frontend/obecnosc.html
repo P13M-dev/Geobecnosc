@@ -35,6 +35,7 @@
             .attendance-table th, .attendance-table td { padding: 12px 10px; }
         }
     </style>
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="page-shell">
@@ -126,32 +127,25 @@
     </div>
     <script>
 
-        klasySelect = document.getElementById("classSelect").value
-
-        klasy = [ //dummy array php przesyłanie tutaj
-            {"klasaSymbol" : "1C"},
-            {"klasaSymbol" : "2C"},
-            {"klasaSymbol" : "3C"},
-            {"klasaSymbol" : "4C"},
-            {"klasaSymbol" : "5C"}
-        ]
-        klasy.forEach(klasa => {
-            let opcja = document.createElement('option');
-            opcja.value = klasa.klasaSymbol;
-            opcja.innerHTML = klasa.klasaSymbol;
-            document.getElementById("classSelect").appendChild(opcja);
-        });
         
-
-
-        
+        async function zaladujKlasy() {
+            let klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));
+            klasy.forEach(klasa => {
+                let opcja = document.createElement('option');
+                opcja.value = klasa.id;
+                opcja.innerHTML = klasa.nazwa;
+                document.getElementById("classSelect").appendChild(opcja);
+            });
+        }
 
         document.getElementById('loadButton').addEventListener('click', async function(e) {
             e.preventDefault();
             let tresc = new URLSearchParams,
             data = document.getElementById("daySelect").value;
-            tresc.append("klasa",klasySelect);
+            klasa = document.getElementById("classSelect").value;
             tresc.append("data",data);
+            tresc.append("klasa",klasa);
+            
 
             
 
@@ -160,6 +154,7 @@
             obecnosci = JSON.parse(await zapytajSerwer("obecnosci",tresc));
             //window.location.href = '../dashboard-admin.html';
         });
+        zaladujKlasy();
     </script>
 </body>
 </html>

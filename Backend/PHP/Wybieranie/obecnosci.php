@@ -3,30 +3,23 @@
 session_start();
 
 if(!isAdmin()) die;
-
-$dzien = $_POST["daySelect"];
-$klasa = $_POST["classSelect"];
+if(!isset($_POST["dzien"])) die;
+if(!isset($_POST["klasa"])) die;
 
 $db = Database::get();
-$result = 0;
+$dzien = $db->query("SELECT id FROM dni WHERE dzien = ?",[$_POST["dzien"]]);
+if(sizeof($dzien)==0) die;
+$dzien = $dzien[0]["id"];
+$obecnosci = $db->query(
+    "   SELECT u.imie,u.nazwisko,ol.spozniony,ol.obecny,g.liczba_porzadkowa FROM obecnosci_na_lekcji as ol
+        INNER JOIN lekcje as l ON l.id = ol.lekcja 
+        INNER JOIN godziny as g ON g.id = l.godzina
+        INNER JOIN obecnosci_w_dniu as od ON od.id = ol.obecnosc
+        INNER JOIN uczniowie as u ON u.id = od.uczen
+        WHERE od.dzien = ? AND u.klasa = ?
+    ",[$dzien,$_POST["klasa"]]
+);
 
-for($i=0; $i<10; $i++){
-    $query = "SELECT Uczen.Imie,Uczen.Nazwisko,
-    ObecnoscNaLekcji.spozniony,ObecnoscNaLekcji.obecny 
-
-    FROM ObecnoscNaLekcji
-
-    INNER JOIN ObecnoscWDniu ON ObecnoscWDniu.id = ObecnoscNaLekcji.ObecnoscWDniu_id
-    INNER JOIN Uczen ON Uczen.Id = ObecnoscWDniu.Uczen_Id
-    INNER JOIN Lekcja ON Lekcja.Godzina_idGodzina = ObecnoscNaLekcji.Lekcja_Godzina_idGodzina 
-
-    WHERE ObecnoscWDniu_Uczen_Klasa_id = $klasa
-    WHERE ObecnoscWDniu.Dzien_Dzien = $dzien
-    WHERE ObecnoscNaLekcji_Lekcja_Godzina_idGodzina = $i";
-    $result += $query;
-}
-
-
-echo json_encode($db->query($result));
+echo json_encode($obecnosci);
 
 ?>
