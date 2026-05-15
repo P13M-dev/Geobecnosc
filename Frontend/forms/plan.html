@@ -131,8 +131,8 @@
         <div class="nav"><a href="../dashboard-admin.html">Powrót do panelu</a></div>
     </div>
     <script>
-        function zaladujPrzedmioty(){
-            przedmioty = JSON.parse(zapytajSerwer("wybierzPrzedmioty"));
+        async function zaladujPrzedmioty(){
+            przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty"));
             document.querySelector("tbody tr").forEach(element => {
                 element.querySelector("td").forEach(td =>{
                     let wybor = document.createElement("select");
