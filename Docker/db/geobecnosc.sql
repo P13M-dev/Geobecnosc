@@ -9,71 +9,72 @@ CREATE TABLE `klasy` (
 ALTER TABLE `klasy` ADD PRIMARY KEY (`id`);
 ALTER TABLE `klasy` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-CREATE TABLE `nauczyciel`(
+CREATE TABLE `nauczyciele`(
     `id` int(11) NOT NULL,
-    `nauczyciel_przedmiot` int(11), -- rel
+    `przedmiot` int(11), 
     `imie` varchar(50),
     `nazwisko` varchar(50),
     `email` varchar(75),
-    `hash` varchar(100),
+    `hash_hasla` varchar(100),
     `administrator` boolean
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `nauczyciel` ADD PRIMARY KEY (`id`);
-ALTER TABLE `nauczyciel` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `nauczyciele` ADD PRIMARY KEY (`id`);
+ALTER TABLE `nauczyciele` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-CREATE TABLE `nauczyciel_przedmiot`(
-    `nauczyciel` int(11), -- rel
-    `przedmiot` int(11) -- rel
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+--CREATE TABLE `nauczyciele_przedmiote`(
+--    `nauczyciel` int(11), -- rel
+--    `przedmiot` int(11) -- rel
+--) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE `uczen` (
+CREATE TABLE `uczeniowie` (
     `id` int(11) NOT NULL,
     `imie` varchar(50),
     `nazwisko` varchar(50),
     `email` varchar(75),
-    `hash` varchar(100),
-    `klasa` int(11) -- rel
+    `hash_hasla` varchar(100),
+    `klasa` int(11) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `uczen` ADD PRIMARY KEY (`id`);
-ALTER TABLE `uczen` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `uczeniowie` ADD PRIMARY KEY (`id`);
+ALTER TABLE `uczeniowie` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-CREATE TABLE `lekcja` (
+CREATE TABLE `lekcje` (
     `id` int(11) NOT NULL,
-    `godzina` int(11), -- rel
-    `przedmiot` int(11) -- rel
+    `godzinaRozpoczecia` int(11),
+    `godzinaZakonczenia` int(11),
+    `przedmiot` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `lekcja` ADD PRIMARY KEY (`id`);
-ALTER TABLE `lekcja` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `lekcje` ADD PRIMARY KEY (`id`);
+ALTER TABLE `lekcje` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-CREATE TABLE `przedmiot` (
+CREATE TABLE `przedmioty` (
     `id` int(11) NOT NULL,
     `nazwa` varchar(50)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `przedmiot` ADD PRIMARY KEY (`id`);
-ALTER TABLE `przedmiot` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `przedmioty` ADD PRIMARY KEY (`id`);
+ALTER TABLE `przedmioty` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-CREATE TABLE `godzina` (
+CREATE TABLE `godziny` (
     `id` int(11) NOT NULL,
     `godzina` TIME
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `godzina` ADD PRIMARY KEY (`id`);
-ALTER TABLE `godzina` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `godziny` ADD PRIMARY KEY (`id`);
+ALTER TABLE `godziny` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-CREATE TABLE `obecnosc_w_dniu` (
+CREATE TABLE `obecnosci_w_dniu` (
     `id` int(11) NOT NULL,
-    `dzien` int(11), --rel
-    `uczen` int(11)  --rel
+    `dzien` int(11),
+    `uczen` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `obecnosc_w_dniu` ADD PRIMARY KEY (`id`);
-ALTER TABLE `obecnosc_w_dniu` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `obecnosci_w_dniu` ADD PRIMARY KEY (`id`);
+ALTER TABLE `obecnosci_w_dniu` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-CREATE TABLE `obecnosc_na_lekcji` (
+CREATE TABLE `obecnosci_na_lekcji` (
     `id` int(11),
-    `lekcja` int(11), --rel
-    `obecnosc` int(11), --rel
+    `lekcja` int(11),
+    `obecnosc` int(11),
     `spozniony` boolean,
     `obecny` boolean
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-ALTER TABLE `obecnosc_na_lekcji` ADD PRIMARY KEY (`id`);
-ALTER TABLE `obecnosc_na_lekcji` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `obecnosci_na_lekcji` ADD PRIMARY KEY (`id`);
+ALTER TABLE `obecnosci_na_lekcji` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 

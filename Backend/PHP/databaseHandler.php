@@ -5,11 +5,15 @@ class Database {
     private const HOST = "db-geobecnosc";
     private const DBNAME = "geobecnosc";
     private const USER = "User";
-    private const PASSWORD = "uvG!lBWUDD:AP|aW0<ylOO^:Dmyh:^oF[jbn|KWCMC7ZM\$ie87hnL7`I0VM#GWJv";
+    private const PASSWORD = "aMgtm48OBi0cxEvG5I8MQBj4oOsG2asakcEpymZySn3i8SyNSzDzOjWIkUfqxwMp";
     private $db;
 
     private function __construct() {
         $this->db = mysqli_connect(self::HOST,self::USER,self::PASSWORD,self::DBNAME);
+    }
+
+    public function __destruct(){
+        mysqli_close($this->db);
     }
 
     public static function get() {

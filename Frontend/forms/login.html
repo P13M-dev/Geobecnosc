@@ -68,6 +68,7 @@
             text-decoration: underline;
         }
     </style>
+    <script src="../script.js"></script>
 </head>
 <body>
     <div class="page-shell">
@@ -75,7 +76,7 @@
             <h2>Zaloguj się</h2>
 
             <!-- PRZESYŁANIE -->
-            <form id="loginForm" action="../dashboard-admin.html">
+            <form id="loginForm">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" required>
@@ -90,7 +91,18 @@
     </div>
 
     <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            let tresc = new URLSearchParams,
+            email = document.getElementById("email").value;
+            haslo = document.getElementById("password").value;
+            tresc.append("email",email);
+            tresc.append("haslo",haslo);
+            console.log(await zapytajSerwer("zalogujNauczyciel",tresc));
 
+            //window.location.href = '../dashboard-admin.html';
+        });
     </script>
 </body>
 </html>

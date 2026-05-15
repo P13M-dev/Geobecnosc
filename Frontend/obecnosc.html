@@ -44,11 +44,6 @@
                 <label for="classSelect">Wybierz klasę</label>
                 <select id="classSelect">
 
-                    <!-- php pobieranie klas tutaj w pszyłości -->
-                    <option value="2A">2A</option>
-                    <option value="2B">2B</option>
-                    <option value="3A">3A</option>
-                    <option value="3B">3B</option>
                 </select>
             </div>
             <div class="control">
@@ -129,8 +124,42 @@
 
         <a class="back-link" href="dashboard-admin.html">Powrót do panelu</a>
     </div>
-
     <script>
+
+        klasySelect = document.getElementById("classSelect").value
+
+        klasy = [ //dummy array php przesyłanie tutaj
+            {"klasaSymbol" : "1C"},
+            {"klasaSymbol" : "2C"},
+            {"klasaSymbol" : "3C"},
+            {"klasaSymbol" : "4C"},
+            {"klasaSymbol" : "5C"}
+        ]
+        klasy.forEach(klasa => {
+            let opcja = document.createElement('option');
+            opcja.value = klasa.klasaSymbol;
+            opcja.innerHTML = klasa.klasaSymbol;
+            document.getElementById("classSelect").appendChild(opcja);
+        });
+        
+
+
+        
+
+        document.getElementById('loadButton').addEventListener('click', async function(e) {
+            e.preventDefault();
+            let tresc = new URLSearchParams,
+            data = document.getElementById("daySelect").value;
+            tresc.append("klasa",klasySelect);
+            tresc.append("data",data);
+
+            
+
+            console.log(tresc);
+            
+            obecnosci = JSON.parse(await zapytajSerwer("obecnosci",tresc));
+            //window.location.href = '../dashboard-admin.html';
+        });
     </script>
 </body>
 </html>
