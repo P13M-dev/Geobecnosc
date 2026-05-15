@@ -23,6 +23,103 @@ body {
     margin: 0 auto;
 }
 
+.page-shell.form-shell {
+    max-width: 900px;
+    padding: 24px;
+}
+
+.page-shell h1,
+.form-panel h2,
+.list-panel h2 {
+    margin: 0 0 18px;
+    color: #14532d;
+}
+
+.page-content {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.list-panel,
+.form-panel {
+    background: white;
+    border: 1px solid #d9edd6;
+    border-radius: 18px;
+    padding: 20px;
+}
+
+.list-panel {
+    flex: 1 1 260px;
+    min-width: 260px;
+    max-width: 320px;
+}
+
+.form-panel {
+    flex: 2 1 360px;
+    min-width: 320px;
+}
+
+.field {
+    margin-bottom: 18px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #334338;
+}
+
+.field input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #c9e3cc;
+    border-radius: 10px;
+}
+
+.field input:focus {
+    outline: none;
+    border-color: #16a34a;
+}
+
+.nav {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.nav a {
+    color: #16a34a;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.subject-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
+.subject-list li {
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border-radius: 14px;
+    background: #eff7ed;
+    color: #1f4332;
+    cursor: default;
+}
+
+.subject-list li span {
+    display: block;
+    font-weight: 700;
+}
+
+.subject-list li small {
+    color: #526a55;
+}
+
 .hero {
     display: grid;
     grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
@@ -147,6 +244,10 @@ body {
 
     .info-grid {
         grid-template-columns: 1fr;
+    }
+
+    .page-content {
+        flex-direction: column;
     }
 }
 
