@@ -5,8 +5,7 @@ session_start();
 if(!isAdmin()) die;
 
 $db = Database::get();
-$db->query("SELECT id,nazwa FROM ");
 
-
+echo json_encode($db->query("SELECT id,nazwa FROM przedmioty"));
 
 ?>

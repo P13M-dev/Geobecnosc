@@ -11,7 +11,7 @@ if(!isset($_POST["klasa"])) die;
 
 $db = Database::get();
 $hash = password_hash($_POST["haslo"],PASSWORD_DEFAULT);
-$db->query("INSERT INTO przedmiot (imie,nazwisko,email,hash_hasla,klasa) VALUES (?,?,?,?,?)",[
+$db->query("INSERT INTO uczniowie (imie,nazwisko,email,hash_hasla,klasa) VALUES (?,?,?,?,?)",[
     $_POST["imie"],
     $_POST["nazwisko"],
     $_POST["email"],
@@ -19,6 +19,6 @@ $db->query("INSERT INTO przedmiot (imie,nazwisko,email,hash_hasla,klasa) VALUES 
     $_POST["klasa"]
 ]); 
 
-echo "success";
+echo "ok";
 
 ?>
