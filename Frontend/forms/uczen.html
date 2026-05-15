@@ -43,7 +43,7 @@
             <div class="field">
                 <label for="studentClass">Klasa</label>
                 <!-- <input type="text" id="studentClass"  required> -->
-                 <select id="studentClass"></select>
+                 <select required id="studentClass"></select>
             </div>
             <button type="submit" class="btn">Zapisz ucznia</button>
         </form>
@@ -51,7 +51,7 @@
     </div>
     <script>
         async function zaladujPrzedmioty(){
-            klasa = JSON.parse(await zapytajSerwer("wybierzKlasy"));
+            klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));
             klasy.forEach(klasa => {
                 let wybor = document.createElement("option");
                 wybor.value = klasa.id;
