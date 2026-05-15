@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -36,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
     @RequiresPermission(Manifest.permission.SCHEDULE_EXACT_ALARM)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SharedPreferences prefs = getSharedPreferences("app", MODE_PRIVATE);
+
+        if (!prefs.getString("token", "").isEmpty()) {
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+        }
+
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -87,21 +96,31 @@ public class MainActivity extends AppCompatActivity {
                 correctData = false;
             }
 
-            if (domainCheckbox.isChecked() && domainField.getText().isEmpty()) {
+            if (domainCheckbox.isChecked() && domainField.getText().toString().isEmpty()) {
                 domainField.setBackgroundResource(R.drawable.input_error_background);
                 correctData = false;
             } else if (domainCheckbox.isChecked()) domain = domainField.getText().toString();
             else domain = "https://casino-lunacy-riveter.ngrok-free.dev/api";
 
+            correctData = true;
 
             if (correctData) {
-                String data = RequestsManager.post(
-                        domain,
-                        new Header[]{new Header("Authorization", "uioyg234rt89uhdf1230ioprhioyu1gh3riok12")},
-                        payload
-                );
+//                String data = RequestsManager.post(
+//                        domain,
+//                        new Header[]{new Header("Authorization", "uioyg234rt89uhdf1230ioprhioyu1gh3riok12")},
+//                        payload
+//                );
+//
+//                System.out.println(data);
+                SharedPreferences.Editor editor = prefs.edit();
 
-                System.out.println(data);
+                editor.putString("token", "lol");
+                editor.putBoolean("verified", false);
+
+                editor.apply();
+
+                startActivity(new Intent(this, HomeActivity.class));
+                finish();
             }
         });
     }
