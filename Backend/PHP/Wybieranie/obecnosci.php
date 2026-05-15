@@ -8,6 +8,7 @@ $dzien = $_POST["daySelect"];
 $klasa = $_POST["classSelect"];
 
 $db = Database::get();
+$result;
 
 for($i=0; $i<10; $i++){
     $query = "SELECT Uczen.Imie,Uczen.Nazwisko,
@@ -22,9 +23,10 @@ for($i=0; $i<10; $i++){
     WHERE ObecnoscWDniu_Uczen_Klasa_id = $klasa
     WHERE ObecnoscWDniu.Dzien_Dzien = $dzien
     WHERE ObecnoscNaLekcji_Lekcja_Godzina_idGodzina = $i";
+    $result += $query;
 }
 
 
-// echo json_encode($db->query($query));
+echo json_encode($db->query($result));
 
 ?>
