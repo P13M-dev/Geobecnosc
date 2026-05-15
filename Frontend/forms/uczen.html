@@ -42,18 +42,42 @@
             </div>
             <div class="field">
                 <label for="studentClass">Klasa</label>
-                <input type="text" id="studentClass"  required>
+                <!-- <input type="text" id="studentClass"  required> -->
+                 <select id="studentClass"></select>
             </div>
             <button type="submit" class="btn">Zapisz ucznia</button>
         </form>
         <div class="nav"><a href="../dashboard-admin.html">Powrót do panelu</a></div>
     </div>
     <script>
-        document.getElementById('studentForm').addEventListener('submit', function(e) {
+        async function zaladujPrzedmioty(){
+            klasa = JSON.parse(await zapytajSerwer("wybierzKlasy"));
+            klasy.forEach(klasa => {
+                let wybor = document.createElement("option");
+                wybor.value = klasa.id;
+                wybor.textContent = klasa.nazwa
+                document.getElementById("studentClass").appendChild(wybor);
+            });
+        }
+        document.getElementById('studentForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            alert('Uczeń zapisany (tymczasowo).');
+            let tresc = new URLSearchParams,
+            imie = document.getElementById("studentName").value;
+            nazwisko = document.getElementById("studentSurname").value;
+            email = document.getElementById("studentEmail").value;
+            haslo = document.getElementById("studentPassword").value;
+            klasa = document.getElementById("studentClass").value;
+            tresc.append("imie",imie);
+            tresc.append("nazwisko",nazwisko);
+            tresc.append("email",email);
+            tresc.append("haslo",haslo);
+            tresc.append("klasa",klasa);
+
+            console.log(tresc);
+            console.log(await zapytajSerwer("dodajUcznia",tresc));
             window.location.href = '../dashboard-admin.html';
         });
+        zaladujPrzedmioty();
     </script>
 </body>
 </html>
