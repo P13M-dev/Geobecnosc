@@ -27,8 +27,8 @@ services:
     environment:
       MARIADB_DATABASE: geobecnosc
       MARIADB_USER: User
-      MARIADB_PASSWORD: D"F"S0gf6TmvAA,;RX%5:,uQ&Ol0Xb:(d.RfhE|=PfvT~;rC=JSrpdkQ8e%GTPL=
-      MARIADB_ROOT_PASSWORD: uvG!lBWU"DD:AP|aW0<ylOO^:Dmyh:^oF[jbn|KWCMC7ZMaie87hnL7`"I0VM#GW
+      MARIADB_PASSWORD: aMgtm48OBi0cxEvG5I8MQBj4oOsG2asakcEpymZySn3i8SyNSzDzOjWIkUfqxwMp
+      MARIADB_ROOT_PASSWORD: aMgtm48OBi0cxEvG5I8MQBj4oOsG2asakcEpymZySn3i8SyNSzDzOjWIkUfqxwMp
       TZ: Europe/Warsaw
     volumes:
       - ./db/geobecnosc.sql:/docker-entrypoint-initdb.d/init.sql
