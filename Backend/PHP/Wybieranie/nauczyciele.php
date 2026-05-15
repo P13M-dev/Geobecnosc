@@ -2,7 +2,7 @@
 
 session_start();
 
-//if(!isAdmin()) die;
+if(!isAdmin()) die;
 
 $db = Database::get();
 

@@ -33,12 +33,12 @@
         <div class="nav"><a href="../dashboard-admin.html">Powrót do panelu</a></div>
     </div>
     <script>
-        document.getElementById('classForm').addEventListener('submit', function(e) {
+        document.getElementById('classForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             let tresc = new URLSearchParams,
             klasa = document.getElementById("className").value;
             tresc.append("klasa",klasa);
-            zapytajSerwer("dodajKlase",tresc);
+            console.log(await zapytajSerwer("dodajKlase",tresc));
             window.location.href = '../dashboard-admin.html';
         });
     </script>

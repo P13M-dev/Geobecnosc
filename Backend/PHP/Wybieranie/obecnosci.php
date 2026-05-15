@@ -8,7 +8,7 @@ $dzien = $_POST["daySelect"];
 $klasa = $_POST["classSelect"];
 
 $db = Database::get();
-$result;
+$result = 0;
 
 for($i=0; $i<10; $i++){
     $query = "SELECT Uczen.Imie,Uczen.Nazwisko,
