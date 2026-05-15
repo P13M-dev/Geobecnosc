@@ -18,6 +18,7 @@
         .nav { margin-top: 20px; text-align: center; }
         .nav a { color: #16a34a; text-decoration: none; font-weight: 600; }
     </style>
+    <script src="../script.js"></script>
 </head>
 <body>
     <div class="page-shell">
@@ -34,7 +35,10 @@
     <script>
         document.getElementById('classForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Klasa zapisana (tymczasowo).');
+            let body = new URLSearchParams,
+            klasa = document.getElementById("className").value;
+            body.append("klasa",klasa);
+            zapytajSerwer("dodajKlase",body);
             window.location.href = '../dashboard-admin.html';
         });
     </script>

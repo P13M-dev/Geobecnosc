@@ -25,7 +25,7 @@ services:
   db-geobecnosc:
     build: ./db
     environment:
-      MARIADB_DATABASE: p13m
+      MARIADB_DATABASE: geobecnosc
       MARIADB_USER: User
       MARIADB_PASSWORD: D"F"S0gf6TmvAA,;RX%5:,uQ&Ol0Xb:(d.RfhE|=PfvT~;rC=JSrpdkQ8e%GTPL=
       MARIADB_ROOT_PASSWORD: uvG!lBWU"DD:AP|aW0<ylOO^:Dmyh:^oF[jbn|KWCMC7ZMaie87hnL7`"I0VM#GW

@@ -22,6 +22,7 @@
         .nav { margin-top: 20px; text-align: center; }
         .nav a { color: #16a34a; text-decoration: none; font-weight: 600; }
     </style>
+    <script src="../script.js"></script>
 </head>
 <body>
     <div class="page-shell">
@@ -43,6 +44,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <th>0.</th>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                        <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
+                    </tr>
                     <tr>
                         <th>1.</th>
                         <td><input class="cell-input" type="text" placeholder="Przedmiot"></td>
@@ -125,6 +134,11 @@
         document.getElementById('scheduleForm').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('Plan lekcji zapisany (tymczasowo).');
+            document.querySelector("tbody tr").forEach(element => {
+                element.querySelector("td").forEach(element =>{
+                    
+                });
+            });
             window.location.href = '../dashboard-admin.html';
         });
     </script>

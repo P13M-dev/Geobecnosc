@@ -11,6 +11,10 @@ class Database {
     private function __construct() {
         $this->db = mysqli_connect(self::HOST,self::USER,self::PASSWORD,self::DBNAME);
     }
+    private function __destruct()
+    {
+        mysqli_close($this->db);
+    }
 
     public static function get() {
         if (self::$instance === null) self::$instance = new self();

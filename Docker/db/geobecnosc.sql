@@ -15,7 +15,7 @@ CREATE TABLE `nauczyciel`(
     `imie` varchar(50),
     `nazwisko` varchar(50),
     `email` varchar(75),
-    `hash` varchar(100),
+    `hash_hasla` varchar(100),
     `administrator` boolean
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 ALTER TABLE `nauczyciel` ADD PRIMARY KEY (`id`);
@@ -31,7 +31,7 @@ CREATE TABLE `uczen` (
     `imie` varchar(50),
     `nazwisko` varchar(50),
     `email` varchar(75),
-    `hash` varchar(100),
+    `hash_hasla` varchar(100),
     `klasa` int(11) -- rel
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 ALTER TABLE `uczen` ADD PRIMARY KEY (`id`);
@@ -39,7 +39,8 @@ ALTER TABLE `uczen` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 CREATE TABLE `lekcja` (
     `id` int(11) NOT NULL,
-    `godzina` int(11), -- rel
+    `godzinaRozpoczecia` int(11), -- rel
+    `godzinaZakonczenia` int(11), --rel
     `przedmiot` int(11) -- rel
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 ALTER TABLE `lekcja` ADD PRIMARY KEY (`id`);
