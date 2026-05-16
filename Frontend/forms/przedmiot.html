@@ -39,9 +39,10 @@
             listElement.innerHTML = '';
             przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty"));
             przedmioty.forEach((przedmiot, index) => {
+                if(index>0){ 
                 const item = document.createElement('li');
                 item.innerHTML = `<span>${przedmiot.nazwa}</span>`;
-                listElement.appendChild(item);
+                listElement.appendChild(item);}
             });
         }
 

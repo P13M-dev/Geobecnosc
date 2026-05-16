@@ -61,9 +61,7 @@
             });
         }
 
-        
-
-        async function zaladujPrzedmioty(){
+        async function zaladujKlasy(){
             klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));
             klasy.forEach(klasa => {
                 let wybor = document.createElement("option");
@@ -72,6 +70,7 @@
                 document.getElementById("studentClass").appendChild(wybor);
             });
         }
+
         document.getElementById('studentForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             let tresc = new URLSearchParams,
@@ -88,7 +87,7 @@
             console.log(await zapytajSerwer("dodajUcznia",tresc));
             uczniowieLista();
         });
-        zaladujPrzedmioty();
+        zaladujKlasy();
         uczniowieLista();
     </script>
 </body>

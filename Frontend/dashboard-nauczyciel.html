@@ -72,6 +72,7 @@
             background: #15803d;
         }
     </style>
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="page-shell">
@@ -79,7 +80,7 @@
             <h1>GEOBECNOŚĆ</h1>
             <div class="user-info">
                 <span id="nazwa">Witaj, [Nazwa Użytkownika]</span>
-                <button class="btn-logout">Wyloguj się</button>
+                <button class="btn-logout" id="logout" >Wyloguj się</button>
             </div>
         </header>
 
@@ -107,6 +108,12 @@
             dane = JSON.parse(await zapytajSerwer("wybierzImieNazwisko"))
             document.getElementById("nazwa").innerText = "Witaj, "+dane.imie[0]+". "+dane.nazwisko;
         }
+
+        document.getElementById("logout").addEventListener('click',()=>{
+            zapytajSerwer("wylogujNauczyciel");
+            window.location.href = "index.html";
+        })
+
         wypelnij_imie();
 
     </script>

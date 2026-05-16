@@ -104,7 +104,7 @@
             <h1>GEOBECNOŚĆ</h1>
             <div class="user-info">
                 <span id="nazwa">Witaj, [Nazwa Użytkownika]</span>
-                <button class="btn-logout" onclick="window.location.href='index.html'">Wyloguj się</button>
+                <button class="btn-logout" id="logout" >Wyloguj się</button>
             </div>
         </header>
 
@@ -167,6 +167,12 @@
             dane = JSON.parse(await zapytajSerwer("wybierzImieNazwisko"))
             document.getElementById("nazwa").innerText = "Witaj, "+dane.imie[0]+". "+dane.nazwisko;
         }
+
+        document.getElementById("logout").addEventListener('click',async ()=>{
+            await zapytajSerwer("wylogujNauczyciel");
+            window.location.href = "index.html";
+        })
+
         wypelnij_imie();
 
     </script>

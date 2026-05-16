@@ -6,7 +6,7 @@ if(!isset($_POST["email"])) die;
 if(!isset($_POST["haslo"])) die;
 $db = Database::get();
 
-$wynik = $db->query("SELECT id,imie,nazwisko,hash_hasla,administrator FROM nauczyciele");
+$wynik = $db->query("SELECT id,imie,nazwisko,hash_hasla,administrator FROM nauczyciele WHERE email=?",[$_POST["email"]]);
 if(sizeof($wynik)==0) {echo "incorrect";die;} 
 if(!password_verify($_POST["haslo"],$wynik[0]["hash_hasla"])) {echo "incorrect";die;} 
 $_SESSION["idNauczyciela"] = $wynik[0]["id"];

@@ -24,7 +24,7 @@
         <form id="scheduleForm">
             <div class="field">
                 <label for="scheduleClass">Do której klasy należy</label>
-                <input type="text" id="scheduleClass" required>
+                <select id="scheduleClass" required></select>
             </div>
             <table>
                 <thead>
@@ -127,13 +127,11 @@
     <script>
         async function zaladujPrzedmioty(){
             przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty"));
-            document.querySelector("tbody tr").forEach(element => {
-                element.querySelector("td").forEach(td =>{
+            (document.querySelectorAll("tbody tr")).forEach(element => {
+                (element.querySelectorAll("td")).forEach(td =>{
                     let wybor = document.createElement("select");
-                    
-                    przedmioty.foreach(przedmiot =>{
+                    przedmioty.forEach(przedmiot =>{
                         let opcje = document.createElement("option");
-
                         opcje.value = przedmiot.id;
                         opcje.textContent = przedmiot.nazwa;
                         wybor.appendChild(opcje);
@@ -142,12 +140,23 @@
                 });
             });
         };
+
+        async function zaladujKlasy(){
+            klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));
+            klasy.forEach(klasa => {
+                let wybor = document.createElement("option");
+                wybor.value = klasa.id;
+                wybor.textContent = klasa.nazwa
+                document.getElementById("scheduleClass").appendChild(wybor);
+            });
+        }
         
         document.getElementById('scheduleForm').addEventListener('submit', function(e) {
             e.preventDefault();
             window.location.href = '../dashboard-admin.html';
         });
         zaladujPrzedmioty();
+        zaladujKlasy();
     </script>
 </body>
 </html>
