@@ -97,6 +97,6 @@ ALTER TABLE `obecnosci_w_dniu` ADD CONSTRAINT `fk_ob_uczen` FOREIGN KEY (`uczen`
 ALTER TABLE `obecnosci_na_lekcji` ADD CONSTRAINT `fk_ol_lekcja` FOREIGN KEY (`lekcja`) REFERENCES `lekcje`(`id`);
 ALTER TABLE `obecnosci_na_lekcji` ADD CONSTRAINT `fk_ol_obecnosc` FOREIGN KEY (`obecnosc`) REFERENCES `obecnosci_w_dniu`(`id`);
 
-INSERT INTO `przedmioty` (`nazwa`) VALUES (`Język Polski`,`Matematyka`,`Język Angielski`,`Informatyka`);
+INSERT INTO `przedmioty` (`nazwa`) VALUES ("Język Polski"),("Matematyka"),("Język Angielski"),("Informatyka");
 
-INSERT INTO `nauczyciele` (`przedmiot`,`imie`,`nazwisko`,`email`,`hash_hasla`,`administrator`) VALUES (4,`Jan`,`Kowalski`,`administrator@szkola.com`,`$2y$10$LeBxmssys4kfEhzBoGWCcuS7wP6HCZKb6HFTvMnjiG7Cyf4E0mD4W`,TRUE); --12345678
+INSERT INTO `nauczyciele` (`przedmiot`,`imie`,`nazwisko`,`email`,`hash_hasla`,`administrator`) VALUES (4,"Jan","Kowalski","administrator@szkola.com","$2y$10$LeBxmssys4kfEhzBoGWCcuS7wP6HCZKb6HFTvMnjiG7Cyf4E0mD4W",TRUE); --12345678

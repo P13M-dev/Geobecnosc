@@ -78,7 +78,7 @@
         <header class="dashboard-header">
             <h1>GEOBECNOŚĆ</h1>
             <div class="user-info">
-                <span>Witaj, [Nazwa Użytkownika]</span>
+                <span id="nazwa">Witaj, [Nazwa Użytkownika]</span>
                 <button class="btn-logout">Wyloguj się</button>
             </div>
         </header>
@@ -88,12 +88,6 @@
                 <h3>Sprawdź obecność</h3>
                 <p></p>
                 <button onclick="alert('weewoo')">Zobacz rekordy</button>
-            </section>
-
-            <section class="dashboard-card">
-                <h3>Dodaj obszar</h3>
-                <p></p>
-                <button onclick="window.location.href='test.html'">Oznacz na mapie</button>
             </section>
 
             <section class="dashboard-card">
@@ -108,5 +102,13 @@
     <footer>
         <p>Stworzone przez Piotra Migasa, Bartłomieja Senatora i Dominika Chmielowca</p>
     </footer>
+    <script>
+        async function wypelnij_imie() {
+            dane = JSON.parse(await zapytajSerwer("wybierzImieNazwisko"))
+            document.getElementById("nazwa").innerText = "Witaj, "+dane.imie[0]+". "+dane.nazwisko;
+        }
+        wypelnij_imie();
+
+    </script>
 </body>
 </html>

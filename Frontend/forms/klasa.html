@@ -33,37 +33,29 @@
         </div>
     </div>
     <script>
-        const dummyKlasy = [ //php pobieranie tutaj
-            { symbolKlasy: '1C'},
-            { symbolKlasy: '2C'},
-            { symbolKlasy: '3C'},
-            { symbolKlasy: '4C'},
-            { symbolKlasy: '5C'},
-            { symbolKlasy: '6C'},
-            { symbolKlasy: '7C'},
-            { symbolKlasy: '6767' }
-        ];
 
-        function klasyLista(klasy) {
+        async function klasyLista() {
             const listElement = document.getElementById('klasyList');
             listElement.innerHTML = '';
+            klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));
             klasy.forEach((klasa, index) => {
                 const item = document.createElement('li');
-                item.innerHTML = `<span>${klasa.symbolKlasy}</span>`;
+                item.innerHTML = `<span>${klasa.nazwa}</span>`;
                 listElement.appendChild(item);
                 //jeśli chcesz piotrze tu więcej atrybutów by miały czy coś to idk tutaj
             });
         }
 
-        klasyLista(dummyKlasy);
+       
         document.getElementById('classForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             let tresc = new URLSearchParams,
             klasa = document.getElementById("className").value;
             tresc.append("klasa",klasa);
             console.log(await zapytajSerwer("dodajKlase",tresc));
-            window.location.href = '../dashboard-admin.html';
+            klasyLista();
         });
+        klasyLista();
     </script>
 </body>
 </html>

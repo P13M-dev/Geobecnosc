@@ -96,14 +96,15 @@
             position: inherit;
         }
     </style>
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="page-shell">
         <header class="dashboard-header">
             <h1>GEOBECNOŚĆ</h1>
             <div class="user-info">
-                <span>Witaj, [Nazwa Użytkownika]</span>
-                <button class="btn-logout" onclick="window.location.href='index.html'"">Wyloguj się</button>
+                <span id="nazwa">Witaj, [Nazwa Użytkownika]</span>
+                <button class="btn-logout" onclick="window.location.href='index.html'">Wyloguj się</button>
             </div>
         </header>
 
@@ -112,7 +113,7 @@
                 <section class="dashboard-card">
                     <h3>Sprawdź obecność</h3>
                     <p>Zobacz obecność uczniów na ostatnich lekcjach</p>
-                    <button onclick="window.location.href='obecnosc.html'"">Sprawdź obecność</button>
+                    <button onclick="window.location.href='obecnosc.html'">Sprawdź obecność</button>
                 </section>
 
                 <section class="dashboard-card">
@@ -161,5 +162,13 @@
     <footer>
         <p>Stworzone przez Piotra Migasa, Bartłomieja Senatora i Dominika Chmielowca</p>
     </footer>
+    <script>
+        async function wypelnij_imie() {
+            dane = JSON.parse(await zapytajSerwer("wybierzImieNazwisko"))
+            document.getElementById("nazwa").innerText = "Witaj, "+dane.imie[0]+". "+dane.nazwisko;
+        }
+        wypelnij_imie();
+
+    </script>
 </body>
 </html>

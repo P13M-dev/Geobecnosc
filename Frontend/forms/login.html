@@ -99,9 +99,18 @@
             haslo = document.getElementById("password").value;
             tresc.append("email",email);
             tresc.append("haslo",haslo);
-            console.log(await zapytajSerwer("zalogujNauczyciel",tresc));
+            odpowiedz = await zapytajSerwer("zalogujNauczyciel",tresc);
+            odpowiedz = odpowiedz.trim();
+            console.log("["+odpowiedz+"]")
+            if(odpowiedz=="admin"){
+                window.location.href = '../dashboard-admin.html';
+            } else if(odpowiedz=="nauczyciel"){
+                window.location.href = '../dashboard-nauczyciel.html';
+            } else {
+                // błąd w logowaniu
+            }
 
-            //window.location.href = '../dashboard-admin.html';
+            
         });
     </script>
 </body>
