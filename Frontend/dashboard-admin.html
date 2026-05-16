@@ -164,7 +164,7 @@
     </footer>
     <script>
         async function wypelnij_imie() {
-            dane = JSON.parse(await zapytajSerwer("wybierzImieNazwisko"))
+            dane = JSON.parse(await zapytajSerwer("wybierzImieNazwiskoN"))
             document.getElementById("nazwa").innerText = "Witaj, "+dane.imie[0]+". "+dane.nazwisko;
         }
 
