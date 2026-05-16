@@ -13,8 +13,13 @@ function isTeacher(){
 }
 
 function isStudent(){
-    
+    if(!isset($_POST["token"]));
+    $db = Database::get();
+    $token = $db->query("SELECT zweryfikowany FROM uczniowie WHERE token = ?",[$_POST["token"]]);
+    if(sizeof($token)==0) return 0;
+    return $token["zweryfikowany"];
 }
+
 
 if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="") {
     
@@ -33,6 +38,7 @@ if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="")
         case "wybierzUczniow":              require "$root/Wybieranie/uczniowie.php";break;
         case "obecnosci":                   require "$root/Wybieranie/obecnosci.php";break;
         case "zalogujNauczyciel":           require "$root/Logowanie/nauczyciel.php";break;
+        case "zalogujUczen":                require "$root/Logowanie/uczen.php";break;
         case "wylogujNauczyciel":           require "$root/Logowanie/wylogujNauczyciel.php";break;
         default:                            require "/Backend/404.html";break;
     };

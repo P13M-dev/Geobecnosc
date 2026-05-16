@@ -33,7 +33,10 @@ CREATE TABLE `uczniowie` (
     `nazwisko` varchar(50),
     `email` varchar(75),
     `hash_hasla` varchar(100),
-    `klasa` int(11) 
+    `klasa` int(11),
+    `token` varchar(64) DEFAULT '',
+    `zweryfikowany` boolean DEFAULT FALSE,
+    `godzina_loginu` DATETIME DEFAULT '1000-01-01 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 ALTER TABLE `uczniowie` ADD PRIMARY KEY (`id`);
 ALTER TABLE `uczniowie` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
