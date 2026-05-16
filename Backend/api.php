@@ -34,7 +34,8 @@ if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="")
         case "wybierzNauczycieli":          require "$root/Wybieranie/nauczyciele.php";break;  
         case "wybierzPrzedmioty":           require "$root/Wybieranie/przedmioty.php";break;
         case "wybierzKlasy":                require "$root/Wybieranie/klasy.php";break;
-        case "wybierzImieNazwisko":         require "$root/Wybieranie/imieNazwisko.php";break;
+        case "wybierzImieNazwiskoN":        require "$root/Wybieranie/imieNazwiskoNauczyciela.php";break;
+        case "wybierzImieNazwiskoU":        require "$root/Wybieranie/imieNazwiskoUcznia.php";break;
         case "wybierzUczniow":              require "$root/Wybieranie/uczniowie.php";break;
         case "obecnosci":                   require "$root/Wybieranie/obecnosci.php";break;
         case "zalogujNauczyciel":           require "$root/Logowanie/nauczyciel.php";break;

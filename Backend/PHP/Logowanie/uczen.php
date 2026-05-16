@@ -12,7 +12,7 @@ $uczen = $uczen[0];
 if(!password_verify($_POST["haslo"],$uczen["hash_hasla"])) die;
 
 if($uczen["godzina_loginu"]=="1000-01-01 00:00:00"){ // uczen nie zaczął procesu logowania
-    $token = $randomString = bin2hex(random_bytes(32)); 
+    $token = hash('sha256', microtime(true) . bin2hex(random_bytes(32))); 
     $data = new DateTime();
     $db->query("UPDATE uczniowie SET zweryfikowany = FALSE , token = ? , godzina_loginu = ? WHERE id = ?",[$token,$data->format("Y-m-d H:i:s"),$uczen["id"]]);
 
@@ -22,7 +22,7 @@ if($uczen["godzina_loginu"]=="1000-01-01 00:00:00"){ // uczen nie zaczął proce
     $data = new DateTime($uczen["godzina_loginu"]);
     $stara = new DateTime('-24 hours');
     if($data > $stara) die; // login jest młodszy niż 24 godziny
-    $token = $randomString = bin2hex(random_bytes(32)); 
+    $token = hash('sha256', microtime(true) . bin2hex(random_bytes(32)));
     $db->query("UPDATE uczniowie SET zweryfikowany = TRUE , token = ? WHERE id = ?",[$token,$uczen["id"]]);
     echo $token;
 }
