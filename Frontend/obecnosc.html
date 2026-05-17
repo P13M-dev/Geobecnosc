@@ -137,7 +137,7 @@
         </div>
         <div class="control">
           <button id="loadButton" class="btn">Pokaż obecność</button>
-          <!-- php pobieranie danych do uczniów tutaj tutaj w pszyłości -->
+          <!-- php pobieranie danych do uczniów tutaj w pszyłości -->
         </div>
       </div>
 
@@ -176,18 +176,20 @@
         });
       }
 
-      document
-        .getElementById("loadButton")
-        .addEventListener("click", async function (e) {
+      document.getElementById("loadButton").addEventListener("click", async function (e) {
           e.preventDefault();
           let tresc = new URLSearchParams(),
-            data = document.getElementById("daySelect").value;
+          data = document.getElementById("daySelect").value;
           klasa = document.getElementById("classSelect").value;
-          tresc.append("data", data);
+          tresc.append("dzien", data);
           tresc.append("klasa", klasa);
 
           let obecnosci = await zapytajSerwer("obecnosci",tresc);
+          console.log(obecnosci)
+          obecnosci = JSON.parse(obecnosci);
+
           elem = document.getElementById("attendanceBody");
+          elem.innerHTML = "";
           obecnosci.forEach(obecnosc => {
             let row = document.createElement("tr");
             let uczen =  document.createElement("td");
@@ -196,23 +198,24 @@
             for(i=0; i<8; i++){
               let td =  document.createElement("td");
               if(obecnosc.obecnosci[i]){
-              if(obecnosc.obecnosci[i].obecny == true){
-                td.innerHTML = "✔";
-                if(obecnosc.obecnosci[i].spozniony == true){
-                  td.style.color = "Orange";
-                } else {
-                  td.style.color = "#166534";
-                }
-              } else if(obecnosc.obecnosci[i].obecny == false){
-                td.innerHTML = "✘";
-                td.style.color = "#b91c1c";
-              } else{
-                td.innerHTML = "?";
-                td.style.color = "Blue";
-              } 
-              row.appendChild(td);
+                if(obecnosc.obecnosci[i].obecny == 1){
+                  td.innerHTML = "✔";
+                  if(obecnosc.obecnosci[i].spozniony == 1){
+                    td.style.color = "Orange";
+                  } else {
+                    td.style.color = "#166534";
+                  }
+                } else if(obecnosc.obecnosci[i].obecny == 0){
+                  td.innerHTML = "✘";
+                  td.style.color = "#b91c1c";
+                } else{
+                  td.innerHTML = "?";
+                  td.style.color = "Blue";
+                } 
+                row.appendChild(td);
+              }
             }
-            }
+            
             elem.appendChild(row);
           })
           //window.location.href = '../dashboard-admin.html';

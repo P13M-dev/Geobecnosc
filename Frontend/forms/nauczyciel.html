@@ -60,9 +60,7 @@
                 item.innerHTML = `<span>${nauczyciel.imie} ${nauczyciel.nazwisko}</span>`;
                 listElement.appendChild(item);
             });
-        }
-
-        
+        }        
 
         async function zaladujPrzedmioty(){
             let przedmioty = await zapytajSerwer("wybierzPrzedmioty");

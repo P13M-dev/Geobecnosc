@@ -20,7 +20,6 @@ function isStudent(){
     return $token[0]["zweryfikowany"];
 }
 
-
 if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="") {
     
     $script = $_SERVER["HTTP_AUTHORIZATION"];
@@ -41,12 +40,14 @@ if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="")
         case "wybierzImieNazwiskoU":        require "$root/Wybieranie/imieNazwiskoUcznia.php";break;
         case "wybierzUczniow":              require "$root/Wybieranie/uczniowie.php";break;
         case "wybierzGodziny":              require "$root/Wybieranie/godzinyLekcji.php";break;
+        case "wybierzGodzinyUczen":         require "$root/Wybieranie/godzinyLekcjiUczen.php";break;
         case "wybierzCalyPlan":             require "$root/Wybieranie/planAdmin.php";break;
         case "obecnosci":                   require "$root/Wybieranie/obecnosci.php";break;
         case "zalogujNauczyciel":           require "$root/Logowanie/nauczyciel.php";break;
         case "zalogujUczen":                require "$root/Logowanie/uczen.php";break;
         case "wylogujNauczyciel":           require "$root/Logowanie/wylogujNauczyciel.php";break;
         case "wylogujUczen":                require "$root/Logowanie/wylogujUczen.php";break;
+        case "sprawdzObecnosc":             require "$root/Obecnosci/sprawdzObecnosc.php";break;
         default:                            require "/Backend/404.html";break;
     };
 } else {
