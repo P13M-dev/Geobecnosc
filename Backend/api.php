@@ -31,12 +31,16 @@ if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="")
         case "dodajUcznia":                 require "$root/Dodawanie/uczen.php";break;
         case "dodajPrzedmiot":              require "$root/Dodawanie/przedmiot.php";break;
         case "dodajNauczyciela":            require "$root/Dodawanie/nauczyciel.php";break;
+        case "dodajGodzinyLekcji.php":      require "$root/Dodawanie/godzinyLekcji.php";break;
+        case "dodajPlan.php":               require "$root/Dodawanie/plan.php";break; // dodaje LEKCJE na dany tydzień, a nie stał plan
         case "wybierzNauczycieli":          require "$root/Wybieranie/nauczyciele.php";break;  
         case "wybierzPrzedmioty":           require "$root/Wybieranie/przedmioty.php";break;
         case "wybierzKlasy":                require "$root/Wybieranie/klasy.php";break;
         case "wybierzImieNazwiskoN":        require "$root/Wybieranie/imieNazwiskoNauczyciela.php";break;
         case "wybierzImieNazwiskoU":        require "$root/Wybieranie/imieNazwiskoUcznia.php";break;
         case "wybierzUczniow":              require "$root/Wybieranie/uczniowie.php";break;
+        case "wybierzGodziny":              require "$root/Wybieranie/godzinyLekcji.php";break;
+        case "wybierzCalyPlan":             require "$root/Wybieranie/planAdmin.php";break;
         case "obecnosci":                   require "$root/Wybieranie/obecnosci.php";break;
         case "zalogujNauczyciel":           require "$root/Logowanie/nauczyciel.php";break;
         case "zalogujUczen":                require "$root/Logowanie/uczen.php";break;
