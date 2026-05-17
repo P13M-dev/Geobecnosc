@@ -32,7 +32,7 @@ if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="")
         case "dodajPrzedmiot":              require "$root/Dodawanie/przedmiot.php";break;
         case "dodajNauczyciela":            require "$root/Dodawanie/nauczyciel.php";break;
         case "dodajGodzinyLekcji.php":      require "$root/Dodawanie/godzinyLekcji.php";break;
-        case "dodajPlan.php":               require "$root/Dodawanie/plan.php";break; // dodaje LEKCJE na dany tydzień, a nie stał plan
+        case "dodajPlan.php":               require "$root/Dodawanie/plan.php";break; // dodaje LEKCJE na dany tydzień, a nie stał plan!
         case "wybierzNauczycieli":          require "$root/Wybieranie/nauczyciele.php";break;  
         case "wybierzPrzedmioty":           require "$root/Wybieranie/przedmioty.php";break;
         case "wybierzKlasy":                require "$root/Wybieranie/klasy.php";break;

@@ -40,7 +40,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th>0.</th>
+                        <th>0. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -48,7 +48,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>1.</th>
+                        <th>1. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -56,7 +56,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>2.</th>
+                        <th>2. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -64,7 +64,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>3.</th>
+                        <th>3. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -72,7 +72,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>4.</th>
+                        <th>4. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -80,7 +80,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>5.</th>
+                        <th>5. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -88,7 +88,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>6.</th>
+                        <th>6. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -96,7 +96,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>7.</th>
+                        <th>7. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -104,7 +104,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>8.</th>
+                        <th>8. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -112,7 +112,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>9.</th>
+                        <th>9. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -127,20 +127,31 @@
     </div>
     <script>
         async function zaladujPrzedmioty(){
-            przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty"));
-            (document.querySelectorAll("tbody tr")).forEach(element => {
-                (element.querySelectorAll("td")).forEach(td =>{
+            let przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty")),
+            data = 0;
+            (document.querySelectorAll("tbody tr")).forEach(async (element,index1) => {
+                let dane = new URLSearchParams;
+                dane.append("klasa",document.getElementById("scheduleClass").value);
+                dane.append("data",data)
+                //let lekcje = JSON.parse(await zapytajSerwer("wybierzPrzedmioty",dane))
+                (element.querySelectorAll("td")).forEach(td,index2 =>{
                     let wybor = document.createElement("select");
                     przedmioty.forEach(przedmiot =>{
                         let opcje = document.createElement("option");
                         opcje.value = przedmiot.id;
                         opcje.textContent = przedmiot.nazwa;
+                        //if(przedmiot==lekcje[index2]["nazwa"]) opcje.selected = true;
                         wybor.appendChild(opcje);
                     });
+                    wybor.id = `lekcja_${index1+1}_${index2}`;
                     td.appendChild(wybor);
                 });
             });
         };
+
+        async function zaladujGodziny() {
+            
+        }
 
         async function zaladujKlasy(){
             klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));

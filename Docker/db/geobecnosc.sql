@@ -5,7 +5,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `dane_szkoly` (
     `id` int(11),
     `obszar_szkoly` JSON
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+ALTER TABLE `dane_szkoly` ADD PRIMARY KEY (`id`);
+ALTER TABLE `dane_szkoly` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 CREATE TABLE `klasy` (
     `id` int(11) NOT NULL,
@@ -87,7 +89,7 @@ INSERT INTO `dane_szkoly` (`obszar_szkoly`) VALUES ("[]");
 INSERT INTO `przedmioty` (`nazwa`) VALUES ("-");
 
 INSERT INTO `nauczyciele` (`przedmiot`,`imie`,`nazwisko`,`email`,`hash_hasla`,`administrator`) VALUES 
-(0,"Jan","Kowalski","administrator@szkola.com","$2y$10$LeBxmssys4kfEhzBoGWCcuS7wP6HCZKb6HFTvMnjiG7Cyf4E0mD4W",TRUE); --12345678
+(0,"Jan","Kowalski","admin@szkola.com","$2y$10$LeBxmssys4kfEhzBoGWCcuS7wP6HCZKb6HFTvMnjiG7Cyf4E0mD4W",TRUE); --hasło 12345678
 
 INSERT INTO `godziny` (`liczba_porzadkowa`,`godzina`) VALUES 
 (1,"07:10:00"),

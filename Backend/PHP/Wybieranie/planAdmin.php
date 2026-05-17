@@ -11,6 +11,7 @@ $dzien = $db->query(
 "SELECT p.nazwa,g.liczba_porzadkowa FROM lekcje as l 
 INNER JOIN przedmioty as p ON p.id = l.przedmiot
 INNER JOIN godziny as g ON g.id = l.godzina
+ORDER BY g.liczba_porzadkowa
 ");
 
 echo json_encode($dzien);
