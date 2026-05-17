@@ -48,7 +48,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>1. <input type="time" id="dataLek0"></th>
+                        <th>1. <input type="time" id="dataLek1"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -56,7 +56,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>2. <input type="time" id="dataLek0"></th>
+                        <th>2. <input type="time" id="dataLek2"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -64,7 +64,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>3. <input type="time" id="dataLek0"></th>
+                        <th>3. <input type="time" id="dataLek3"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -72,7 +72,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>4. <input type="time" id="dataLek0"></th>
+                        <th>4. <input type="time" id="dataLek4"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -80,7 +80,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>5. <input type="time" id="dataLek0"></th>
+                        <th>5. <input type="time" id="dataLek5"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -88,7 +88,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>6. <input type="time" id="dataLek0"></th>
+                        <th>6. <input type="time" id="dataLek6"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -96,7 +96,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>7. <input type="time" id="dataLek0"></th>
+                        <th>7. <input type="time" id="dataLek7"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -104,7 +104,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>8. <input type="time" id="dataLek0"></th>
+                        <th>8. <input type="time" id="dataLek8"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -112,7 +112,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>9. <input type="time" id="dataLek0"></th>
+                        <th>9. <input type="time" id="dataLek9"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -132,9 +132,9 @@
             (document.querySelectorAll("tbody tr")).forEach(async (element,index1) => {
                 let dane = new URLSearchParams;
                 dane.append("klasa",document.getElementById("scheduleClass").value);
-                dane.append("data",data)
+                dane.append("data",data);
                 //let lekcje = JSON.parse(await zapytajSerwer("wybierzPrzedmioty",dane))
-                (element.querySelectorAll("td")).forEach(td,index2 =>{
+                (element.querySelectorAll("td")).forEach((td,index2) =>{
                     let wybor = document.createElement("select");
                     przedmioty.forEach(przedmiot =>{
                         let opcje = document.createElement("option");
@@ -150,7 +150,12 @@
         };
 
         async function zaladujGodziny() {
-            
+            godziny = JSON.parse(await zapytajSerwer("wybierzGodziny"));
+            console.log(godziny)
+            godziny.forEach((godzina,index) => {
+
+                document.getElementById(`dataLek${index}`).value = godzina.godzina;
+            });
         }
 
         async function zaladujKlasy(){
@@ -169,6 +174,7 @@
         });
         zaladujPrzedmioty();
         zaladujKlasy();
+        zaladujGodziny();
     </script>
 </body>
 </html>
