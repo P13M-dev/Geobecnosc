@@ -1,166 +1,220 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Plan lekcji - Geobecność</title>
-    <link rel="stylesheet" href="formsStyle.css">
-    <link rel="shortcut icon" href="../favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="formsStyle.css" />
+    <link rel="shortcut icon" href="../favicon.png" type="image/x-icon" />
     <style>
-        .field { margin-bottom: 24px; }
-        .field label { display: block; margin-bottom: 8px; font-weight: 600; color: #334338; }
-        .field select { width: 100%; padding: 12px 14px; border: 1px solid #c9e3cc; border-radius: 10px; }
-        .field input:focus, .field select:focus { outline: none; border-color: #16a34a; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
-        th, td { border: 1px solid #d9edd6; padding: 12px; text-align: center; background: #ffffff; }
-        th { background: #e6f4e6; color: #14532d; }
-        .cell-input { width: 100%; border: 1px solid #c9e3cc; border-radius: 8px; padding: 8px; }
+      .field {
+        margin-bottom: 24px;
+      }
+      .field label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #334338;
+      }
+      .field select {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #c9e3cc;
+        border-radius: 10px;
+      }
+      .field input:focus,
+      .field select:focus {
+        outline: none;
+        border-color: #16a34a;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 24px;
+      }
+      th,
+      td {
+        border: 1px solid #d9edd6;
+        padding: 12px;
+        text-align: center;
+        background: #ffffff;
+      }
+      th {
+        background: #e6f4e6;
+        color: #14532d;
+      }
+      .cell-input {
+        width: 100%;
+        border: 1px solid #c9e3cc;
+        border-radius: 8px;
+        padding: 8px;
+      }
+      input[type="time"] {
+        padding: 4px 6px;
+        border-radius: 5px;
+        border: 1px solid #c9e3cc;
+        background: #f8faf8;
+        font-size: 14px;
+        font-family: "Inter", "Segoe UI", sans-serif;
+      }
+      input[type="time"]:hover {
+        outline: none;
+        border-color: #16a34a;
+        box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.1);
+      }
     </style>
     <script src="../script.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="page-shell">
-        <h1>Dodaj plan lekcji</h1>
-        <form id="scheduleForm">
-            <div class="field">
-                <label for="scheduleClass">Do której klasy należy</label>
-                <select id="scheduleClass" required></select>
-                <label for="scheduleWeek">Na który tydzień jest to plan?</label>
-                <input type="week" name="scheduleWeek" id="tydzien">
-            </div>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Godzina / Dzień</th>
-                        <th>Poniedziałek</th>
-                        <th>Wtorek</th>
-                        <th>Środa</th>
-                        <th>Czwartek</th>
-                        <th>Piątek</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>0. <input type="time" id="dataLek0"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>1. <input type="time" id="dataLek1"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>2. <input type="time" id="dataLek2"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>3. <input type="time" id="dataLek3"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>4. <input type="time" id="dataLek4"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>5. <input type="time" id="dataLek5"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>6. <input type="time" id="dataLek6"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>7. <input type="time" id="dataLek7"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>8. <input type="time" id="dataLek8"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>9. <input type="time" id="dataLek9"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-            <button type="submit" class="btn">Zapisz plan</button>
-        </form>
-        <div class="nav"><a href="../dashboard-admin.html">Powrót do panelu</a></div>
-    </div>
-</body>
-    <script>
-        async function zaladujPrzedmioty(){
-            let przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty")),
-            data = 0;
-            (document.querySelectorAll("tbody tr")).forEach(async (element,index1) => {
-                let dane = new URLSearchParams;
-                dane.append("klasa",document.getElementById("scheduleClass").value);
-                dane.append("data",data);
-                let lekcje = JSON.parse(await zapytajSerwer("wybierzCalyPlan",dane))
-                console.log(lekcje);
-                (element.querySelectorAll("td")).forEach((td,index2) =>{
-                    let wybor = document.createElement("select");
-                    przedmioty.forEach(przedmiot =>{
-                        let opcje = document.createElement("option");
-                        opcje.value = przedmiot.id;
-                        opcje.textContent = przedmiot.nazwa;
-                        if(lekcje.length==0 && przedmiot.nazwa=="-") opcje.selected = true 
-                        else if(lekcje.length>0 && przedmiot.nazwa==lekcje[index2]["nazwa"] ) opcje.selected = true;
-                        wybor.appendChild(opcje);
-                    });
-                    wybor.id = `lekcja_${index1+1}_${index2}`;
-                    td.appendChild(wybor);
-                });
-            });
-        };
+      <h1>Dodaj plan lekcji</h1>
+      <form id="scheduleForm">
+        <div class="field">
+          <label for="scheduleClass">Do której klasy należy</label>
+          <select id="scheduleClass" ></select>
+          <label for="scheduleWeek">Na któy tydzień jest to plan?</label>
+          <input type="week" id="scheduleWeek"name="scheduleWeek"required />
+        </div>
 
-        async function zaladujGodziny() {
-            godziny = JSON.parse(await zapytajSerwer("wybierzGodziny"));
-            godziny.forEach((godzina,index) => {
-                document.getElementById(`dataLek${index}`).value = godzina.godzina;
-                document.getElementById(`dataLek${index}`).step = 60;
-            });
-        }
+        <table>
+          <thead>
+            <tr>
+              <th>Godzina / Dzień</th>
+              <th>Poniedziałek</th>
+              <th>Wtorek</th>
+              <th>Środa</th>
+              <th>Czwartek</th>
+              <th>Piątek</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>0. <input type="time" id="dataLek0" /></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>1. <input type="time" id="dataLek1" /></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>2. <input type="time" id="dataLek2" /></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>3. <input type="time" id="dataLek3" /></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>4. <input type="time" id="dataLek4" /></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>5. <input type="time" id="dataLek5" /></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>6. <input type="time" id="dataLek6" /></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>7. <input type="time" id="dataLek7" /></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>8. <input type="time" id="dataLek8" /></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>9. <input type="time" id="dataLek9" /></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="submit" class="btn">Zapisz plan</button>
+      </form>
+      <div class="nav">
+        <a href="../dashboard-admin.html">Powrót do panelu</a>
+      </div>
+    </div>
+  </body>
+  <script>
+    async function zaladujPrzedmioty() {
+      let przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty")),
+        data = 0;
+      document.querySelectorAll("tbody tr").forEach(async (element, index1) => {
+        let dane = new URLSearchParams();
+        dane.append("klasa", document.getElementById("scheduleClass").value);
+        dane.append("data", data);
+        let lekcje = JSON.parse(await zapytajSerwer("wybierzCalyPlan", dane));
+        console.log(lekcje);
+        element.querySelectorAll("td").forEach((td, index2) => {
+          let wybor = document.createElement("select");
+          przedmioty.forEach((przedmiot) => {
+            let opcje = document.createElement("option");
+            opcje.value = przedmiot.id;
+            opcje.textContent = przedmiot.nazwa;
+            if (lekcje.length == 0 && przedmiot.nazwa == "-")
+              opcje.selected = true;
+            else if (
+              lekcje.length > 0 &&
+              przedmiot.nazwa == lekcje[index2]["nazwa"]
+            )
+              opcje.selected = true;
+            wybor.appendChild(opcje);
+          });
+          wybor.id = `lekcja_${index1 + 1}_${index2}`;
+          td.appendChild(wybor);
+        });
+      });
+    }
+
+    async function zaladujGodziny() {
+      godziny = JSON.parse(await zapytajSerwer("wybierzGodziny"));
+      godziny.forEach((godzina, index) => {
+        document.getElementById(`dataLek${index}`).value = godzina.godzina;
+        document.getElementById(`dataLek${index}`).step = 60;
+      });
+    }
 
         async function zaladujKlasy(){
             klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));
@@ -174,6 +228,28 @@
         
         document.getElementById('scheduleForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            pierwszyDzien = document.getElementById("scheduleWeek").valueAsDate
+            console.log("Pierwszy dzień: " + pierwszyDzien)
+
+            planArray = []
+            for (i = 0;i<5;i++){
+                planArray.push(new Array(9))
+                for (j = 0;j<10;j++){        
+                    planArray[i][j] = {"przedmiot": null, "godzina": null}
+                }
+            }
+            timeInputs = document.querySelectorAll("tr input")
+            for (i = 0;i<timeInputs.length;i++){
+                planArray.forEach((dzien) =>{
+                    dzien[i].godzina = timeInputs[i].value
+                })
+            }
+            przedmiotySelects = document.querySelectorAll("td select")
+            for (i = 0;i<przedmiotySelects.length;i++){
+                planArray[i%5][Math.floor(i/5)].przedmiot = przedmiotySelects[i].value
+            }
+
+            console.log(planArray)            
             
         });
         zaladujPrzedmioty();
