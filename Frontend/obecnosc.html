@@ -160,7 +160,7 @@
         <tbody id="attendanceBody">
           <!-- php pobieranie uczniów i obecności tutaj w pszyłości -->
           <tr>
-            <td>A. Dujka</td>
+            <!-- <td>A. Dujka</td>
             <td class="status-present">✔</td>
             <td class="status-present">✔</td>
             <td class="status-absent">✘</td>
@@ -168,10 +168,10 @@
             <td class="status-absent">✘</td>
             <td class="status-present">✔</td>
             <td class="status-absent">✘</td>
-            <td class="status-present">✔</td>
+            <td class="status-present">✔</td> -->
           </tr>
           <tr>
-            <td>Mariusz Rasz</td>
+            <!-- <td>Mariusz Rasz</td>
             <td class="status-present">✔</td>
             <td class="status-present">✔</td>
             <td class="status-present">✔</td>
@@ -179,10 +179,10 @@
             <td class="status-present">✔</td>
             <td class="status-present">✔</td>
             <td class="status-present">✔</td>
-            <td class="status-present">✔</td>
+            <td class="status-present">✔</td> -->
           </tr>
           <tr>
-            <td>A S</td>
+            <!-- <td>A S</td>
             <td class="status-absent">✘</td>
             <td class="status-present">✔</td>
             <td class="status-present">✔</td>
@@ -190,19 +190,19 @@
             <td class="status-present">✔</td>
             <td class="status-absent">✘</td>
             <td class="status-present">✔</td>
-            <td class="status-absent">✘</td>
+            <td class="status-absent">✘</td> -->
           </tr>
           <tr>
-            <td>Janek Wójcik</td>
+            <!-- <td>Janek Wójcik</td> -->
 
+            <!-- <td class="status-absent">✘</td>
             <td class="status-absent">✘</td>
             <td class="status-absent">✘</td>
             <td class="status-absent">✘</td>
             <td class="status-absent">✘</td>
             <td class="status-absent">✘</td>
             <td class="status-absent">✘</td>
-            <td class="status-absent">✘</td>
-            <td class="status-absent">✘</td>
+            <td class="status-absent">✘</td> -->
           </tr>
         </tbody>
       </table>
@@ -234,12 +234,36 @@
 
           console.log(tresc);
 
-
-          // console.log(await zapytajSerwer("dodajPrzedmiot",tresc));
-
-          //obecnosci = JSON.parse(await zapytajSerwer("obecnosci", tresc));
-          // foreach hour for each uczen aaaaaaaaaaaaaaaaaaaaaaaaaa
-
+          let obecnosci = await zapytajSerwer("obecnosci",tresc);
+          elem = document.getElementById("attendanceBody");
+          obecnosci_placeholder.forEach(obecnosc => {
+            let row = document.createElement("tr");
+            let uczen =  document.createElement("td");
+            uczen.innerHTML = obecnosc.imie + obecnosc.nazwisko;
+            row.appendChild(uczen);
+            console.log(obecnosc.obecnosci[0].obecny);
+            for(i=0; i<8; i++){
+              let td =  document.createElement("td");
+              if(obecnosc.obecnosci[i]){
+              if(obecnosc.obecnosci[i].obecny == true){
+                td.innerHTML = "✔"; //ale zielony
+                if(obecnosc.obecnosci[i].spozniony == true){
+                  td.style.color = "Orange";
+                } else {
+                  td.style.color = "#166534";
+                }
+              } else if(obecnosc.obecnosci[i].obecny == false){
+                td.innerHTML = "✘"; //ale czerwony
+                td.style.color = "#b91c1c";
+              } else{
+                td.innerHTML = "?"; //ale żółty
+                td.style.color = "Blue";
+              } 
+              row.appendChild(td);
+            }
+            }
+            elem.appendChild(row);
+          })
           //window.location.href = '../dashboard-admin.html';
         });
       zaladujKlasy();
