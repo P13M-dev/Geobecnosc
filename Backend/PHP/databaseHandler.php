@@ -20,7 +20,6 @@ class Database {
         if (self::$instance === null) self::$instance = new self();
         return self::$instance;
     }
-
     public function query($sql, $params = []) {
         $result = $this->db->execute_query($sql, $params);
         if ($result instanceof mysqli_result) return $result->fetch_all(MYSQLI_ASSOC);
