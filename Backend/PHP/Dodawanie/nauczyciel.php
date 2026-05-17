@@ -2,7 +2,7 @@
 
 session_start();
 
-// if(!isAdmin()) die;
+if(!isAdmin()) die;
 if(!isset($_POST["imie"])) die;
 if(!isset($_POST["nazwisko"])) die;
 if(!isset($_POST["email"])) die;

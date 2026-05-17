@@ -21,7 +21,7 @@ CREATE TABLE `nauczyciele`(
     `przedmiot` int(11), 
     `imie` varchar(50),
     `nazwisko` varchar(50),
-    `email` varchar(75),
+    `email` varchar(75) UNIQUE,
     `hash_hasla` varchar(100),
     `administrator` boolean
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -32,7 +32,7 @@ CREATE TABLE `uczniowie` (
     `id` int(11) NOT NULL,
     `imie` varchar(50),
     `nazwisko` varchar(50),
-    `email` varchar(75),
+    `email` varchar(75) UNIQUE,
     `hash_hasla` varchar(100),
     `klasa` int(11),
     `token` varchar(64) DEFAULT '',

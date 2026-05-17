@@ -31,8 +31,9 @@ if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="")
         case "dodajUcznia":                 require "$root/Dodawanie/uczen.php";break;
         case "dodajPrzedmiot":              require "$root/Dodawanie/przedmiot.php";break;
         case "dodajNauczyciela":            require "$root/Dodawanie/nauczyciel.php";break;
-        case "dodajGodzinyLekcji.php":      require "$root/Dodawanie/godzinyLekcji.php";break;
-        case "dodajPlan.php":               require "$root/Dodawanie/plan.php";break; // dodaje LEKCJE na dany tydzień, a nie stał plan!
+        case "dodajGodzinyLekcji":          require "$root/Dodawanie/godzinyLekcji.php";break;
+        case "dodajPlan":                   require "$root/Dodawanie/plan.php";break; // dodaje LEKCJE na dany tydzień, a nie stał plan!
+        case "zapiszObszarSzkoly":          require "$root/Dodawanie/obszarSzkoly.php";break;
         case "wybierzNauczycieli":          require "$root/Wybieranie/nauczyciele.php";break;  
         case "wybierzPrzedmioty":           require "$root/Wybieranie/przedmioty.php";break;
         case "wybierzKlasy":                require "$root/Wybieranie/klasy.php";break;
