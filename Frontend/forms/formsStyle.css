@@ -79,6 +79,7 @@ h1 {
     font-weight: 700;
     font-size: 110%;
     cursor: pointer;
+    transition: 0.2s ease;
     }
 .btn:hover {
     background: #15803d;
@@ -91,6 +92,9 @@ h1 {
     color: #16a34a;
     text-decoration: none;
     font-weight: 600;
+    }
+.nav a:hover {
+    text-decoration: underline;
     }
 .list {
     list-style: none;
