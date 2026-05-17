@@ -137,7 +137,7 @@ footer {
 
 
 /* ------------------------------- INDEX.HTML ------------------------------- */
-.hero {
+.index_header {
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
   gap: 32px;
@@ -149,7 +149,7 @@ footer {
   box-shadow: 0 24px 60px rgba(35, 92, 61, 0.12);
 }
 
-.hero-copy .eyebrow {
+.index_title .span {
   display: inline-flex;
   font-size: 0.82rem;
   letter-spacing: 0.22em;
@@ -158,7 +158,7 @@ footer {
   margin-bottom: 12px;
 }
 
-.hero-copy h1 {
+.index_title h1 {
   margin: 0 0 18px;
   font-size: clamp(2.8rem, 4vw, 4rem);
   line-height: 1.02;
@@ -167,31 +167,31 @@ footer {
   color: #14532d;
 }
 
-.hero-copy p {
+.index_title p {
   max-width: 680px;
   font-size: 1.12rem;
   line-height: 1.85;
   color: #2f4e38;
 }
 
-.hero-card {
+.card {
   padding: 32px;
   border-radius: 28px;
   background: #f5fbf5;
   border: 1px solid #d7ecd4;
 }
 
-.hero-card__header h2 {
+.card_header h2 {
   margin: 0 0 8px;
   font-size: 1.8rem;
 }
 
-.hero-card__header p {
+.card_header p {
   margin: 0;
   color: #64748b;
 }
 
-.hero-card__actions {
+.index_login {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -246,10 +246,3 @@ footer {
     grid-template-columns: 1fr;
   }
 }
-/* ------------------------------- DASHBOARD-ADMIN.HTML ------------------------------- */
-
-/* ------------------------------- DASHBOARD-NAUCZ.HTML ------------------------------- */
-
-/* ------------------------------- MAPA.HTML ------------------------------- */
-
-/* ------------------------------- OBECNOSC.HTML ------------------------------- */

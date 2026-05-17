@@ -31,7 +31,7 @@ if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="")
         case "dodajPrzedmiot":              require "$root/Dodawanie/przedmiot.php";break;
         case "dodajNauczyciela":            require "$root/Dodawanie/nauczyciel.php";break;
         case "dodajGodzinyLekcji":          require "$root/Dodawanie/godzinyLekcji.php";break;
-        case "dodajPlan":                   require "$root/Dodawanie/plan.php";break; // dodaje LEKCJE na dany tydzień, a nie stał plan!
+        case "dodajPlan":                   require "$root/Dodawanie/plan.php";break; // dodaje LEKCJE na dany tydzień
         case "zapiszObszarSzkoly":          require "$root/Dodawanie/obszarSzkoly.php";break;
         case "wybierzNauczycieli":          require "$root/Wybieranie/nauczyciele.php";break;  
         case "wybierzPrzedmioty":           require "$root/Wybieranie/przedmioty.php";break;
@@ -48,6 +48,7 @@ if (isset($_SERVER["HTTP_AUTHORIZATION"]) && $_SERVER["HTTP_AUTHORIZATION"]!="")
         case "wylogujNauczyciel":           require "$root/Logowanie/wylogujNauczyciel.php";break;
         case "wylogujUczen":                require "$root/Logowanie/wylogujUczen.php";break;
         case "sprawdzObecnosc":             require "$root/Obecnosci/sprawdzObecnosc.php";break;
+        case "wyczyscAlana":                require "$root/Obecnosci/wyczyscAlana.php";break;
         default:                            require "/Backend/404.html";break;
     };
 } else {

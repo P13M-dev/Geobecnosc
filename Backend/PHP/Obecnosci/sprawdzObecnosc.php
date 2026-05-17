@@ -1,18 +1,20 @@
 <?php
 if(!isStudent()) die;
 
-if(!isset($_POST["pozycja"]));
-if(!isset($_POST["nr_lekcji"]));
-if(!isset($_POST["spoznienie"]));
+if(!isset($_POST["pozycja"])) die;
+if(!isset($_POST["nr_lekcji"])) die;
+if(!isset($_POST["spoznienie"])) die;
 
+
+if($_POST["nr_lekcji"]>10) die;
 
 $db = Database::get();
 $obszarSzkoly = $db->query(
    "SELECT obszar_szkoly FROM dane_szkoly
     WHERE id = 1;"
 );
-$pozycja = json_decode($_POST["pozycja"]);
-$obszarSzkoly = json_decode($obszarSzkoly[0]["obszar_szkoly"]);
+$pozycja = json_decode($_POST["pozycja"], true);
+$obszarSzkoly = json_decode($obszarSzkoly[0]["obszar_szkoly"], true);
 
 function checkIfInsidePolygon(array $polygon, array $point): bool {
 
@@ -81,17 +83,32 @@ function pointOnSegment(float $px, float $py, float $x1, float $y1, float $x2, f
     return $dot <= $lenSq;
 }
 
-$inside = true;
+$obecnosc = true;
+$dzien = "2026-05-18";
+if(!checkIfInsidePolygon($obszarSzkoly,$pozycja)) $obecnosc = false; // poza obszarem
+$spoznienie = $_POST["spoznienie"]; 
 
-if(!checkIfInsidePolygon($obszarSzkoly,$pozycja)) $inside = false; // poza obszarem
-if($_POST["spoznienie"])
-$db->query("UPDATE o
-SET o.obecny = ? , o.spozniony = ?
-FROM obecnosci_na_lekcji AS o
-INNER JOIN uczniowie AS u ON u.id = o.uczen AND u.token = ?; ");
+$czyObecny = $db->query("SELECT obecny FROM obecnosci_na_lekcji AS o
+INNER JOIN uczniowie AS u ON u.id = o.uczen
+INNER JOIN lekcje AS l ON l.id = o.lekcja
+INNER JOIN godziny AS g ON g.id = l.godzina
+WHERE u.token = ? AND g.liczba_porzadkowa = ? AND l.dzien = ?;
+;",[$_POST["token"],$_POST["nr_lekcji"],$dzien])[0]["obecny"];
+
+if (!$czyObecny) {
+    $db->query("UPDATE obecnosci_na_lekcji AS o
+    INNER JOIN uczniowie AS u ON u.id = o.uczen
+    INNER JOIN lekcje AS l ON l.id = o.lekcja
+    INNER JOIN godziny AS g ON g.id = l.godzina
+    SET o.obecny = ?, o.spozniony = ?
+    WHERE u.token = ? AND g.liczba_porzadkowa = ? AND l.dzien = ?;
+    ;",[$obecnosc,$spoznienie,$_POST["token"],$_POST["nr_lekcji"],$dzien]);
+}
+
 
 
 // echo checkIfInsidePolygon(
 //     [[0,0],[2,2],[4,0],[2,1]],
 //     [0,2]
 // ) ? 'tru' : 'fals';
+?>

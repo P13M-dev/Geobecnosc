@@ -290,9 +290,7 @@
         dane.append("klasa",document.getElementById("scheduleClass").value);
         dane.append("plan",JSON.stringify(planArray));
         console.log(await zapytajSerwer("dodajPlan",dane));
-        
     });
-
 
     window.addEventListener('load',async ()=>{
         await zaladujKlasy();

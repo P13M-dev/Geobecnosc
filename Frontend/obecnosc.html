@@ -137,7 +137,6 @@
         </div>
         <div class="control">
           <button id="loadButton" class="btn">Pokaż obecność</button>
-          <!-- php pobieranie danych do uczniów tutaj w pszyłości -->
         </div>
       </div>
 
@@ -146,7 +145,7 @@
         <thead>
           <tr>
             <th>Uczeń</th>
-            <!-- php pobieranie ilości lekcji tutaj w pszyłości -->
+            <th>Lekcja 0</th>
             <th>Lekcja 1</th>
             <th>Lekcja 2</th>
             <th>Lekcja 3</th>
@@ -155,6 +154,8 @@
             <th>Lekcja 6</th>
             <th>Lekcja 7</th>
             <th>Lekcja 8</th>
+            <th>Lekcja 9</th>
+            
           </tr>
         </thead>
         <tbody id="attendanceBody">
@@ -184,28 +185,32 @@
           tresc.append("dzien", data);
           tresc.append("klasa", klasa);
 
-          let obecnosci = await zapytajSerwer("obecnosci",tresc);
-          console.log(obecnosci)
-          obecnosci = JSON.parse(obecnosci);
+          obecnosci = JSON.parse(await zapytajSerwer("obecnosci",tresc));
 
           elem = document.getElementById("attendanceBody");
           elem.innerHTML = "";
+          
           obecnosci.forEach(obecnosc => {
             let row = document.createElement("tr");
             let uczen =  document.createElement("td");
             uczen.innerHTML = obecnosc.imie+" "+obecnosc.nazwisko;
             row.appendChild(uczen);
-            for(i=0; i<8; i++){
+            obecnosc.obecnosci = JSON.parse(obecnosc.obecnosci);
+            obecnosc.obecnosci.sort((a, b) => a[0].localeCompare(b[0]));
+            console.log(obecnosc.obecnosci)
+
+            for(i=0; i<10; i++){
               let td =  document.createElement("td");
               if(obecnosc.obecnosci[i]){
-                if(obecnosc.obecnosci[i].obecny == 1){
+                console.log(obecnosc.obecnosci[i]);
+                if(obecnosc.obecnosci[i][1] == 1){
                   td.innerHTML = "✔";
-                  if(obecnosc.obecnosci[i].spozniony == 1){
+                  if(obecnosc.obecnosci[i][2] == 1){
                     td.style.color = "Orange";
                   } else {
                     td.style.color = "#166534";
                   }
-                } else if(obecnosc.obecnosci[i].obecny == 0){
+                } else if(obecnosc.obecnosci[i][1] == 0){
                   td.innerHTML = "✘";
                   td.style.color = "#b91c1c";
                 } else{
@@ -215,7 +220,6 @@
                 row.appendChild(td);
               }
             }
-            
             elem.appendChild(row);
           })
           //window.location.href = '../dashboard-admin.html';
