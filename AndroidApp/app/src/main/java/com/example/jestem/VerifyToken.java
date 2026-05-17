@@ -33,8 +33,6 @@ public class VerifyToken extends BroadcastReceiver {
         editor.putBoolean("verified", true);
         editor.apply();
 
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + data);
-
         Intent updateIntent = new Intent(context, HomeActivity.class);
 
         updateIntent.addFlags(
@@ -44,5 +42,8 @@ public class VerifyToken extends BroadcastReceiver {
         );
 
         context.startActivity(updateIntent);
+
+        AlarmScheduler.fireVerifyUpdate(context);
+        AlarmScheduler.scheduleNext6AM(context);
     }
 }

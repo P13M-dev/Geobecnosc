@@ -11,18 +11,12 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import java.util.Calendar;
+import androidx.core.app.ActivityCompat;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,11 +27,12 @@ public class MainActivity extends AppCompatActivity {
 
     private CheckBox domainCheckbox;
 
-//    private Button loginButton;
-
     @RequiresPermission(Manifest.permission.SCHEDULE_EXACT_ALARM)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -47,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(requestPermissions);
             }
         }
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                },
+                1
+        );
 
         SharedPreferences prefs = getSharedPreferences("app", MODE_PRIVATE);
 
@@ -55,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        super.onCreate(savedInstanceState);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             getWindow().setDecorFitsSystemWindows(true);
         }
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 domainField.setBackgroundResource(R.drawable.input_error_background);
                 correctData = false;
             } else if (domainCheckbox.isChecked()) domain = domainField.getText().toString();
-            else domain = "https://casino-lunacy-riveter.ngrok-free.dev/api";
+            else domain = "https://p13m.dev/geobecnosc/api";
 
             if (correctData) {
                 String data = RequestsManager.post(
@@ -134,14 +134,16 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("password", password);
                 editor.putString("domain", domain);
                 editor.putBoolean("verified", false);
+
+//                 24h
+                long trigger = System.currentTimeMillis() + 24 * 60 * 60 * 1000;
+
+                editor.putLong("verificationTimer", trigger);
                 editor.apply();
 
                 System.out.println("USTAWIONY TIMER");
 
-                // 24h
-//                long trigger = System.currentTimeMillis() + 24 * 60 * 60 * 1000;
 
-                long trigger = System.currentTimeMillis() + 5000;
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) if (alarmManager.canScheduleExactAlarms())
                     alarmManager.setExact(
