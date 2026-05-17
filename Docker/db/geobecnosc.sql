@@ -72,9 +72,9 @@ ALTER TABLE `godziny` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 CREATE TABLE `obecnosci_na_lekcji` (
     `id` int(11),
     `lekcja` int(11),
-    `obecnosc` int(11),
-    `spozniony` boolean,
-    `obecny` boolean
+    `uczen` int(11),
+    `spozniony` boolean DEFAULT FALSE,
+    `obecny` boolean DEFAULT FALSE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 ALTER TABLE `obecnosci_na_lekcji` ADD PRIMARY KEY (`id`);
 ALTER TABLE `obecnosci_na_lekcji` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
@@ -84,6 +84,7 @@ ALTER TABLE `lekcje` ADD CONSTRAINT `fk_lekcja_godzina` FOREIGN KEY (`godzina`) 
 ALTER TABLE `lekcje` ADD CONSTRAINT `fk_lekcja_przedmiot` FOREIGN KEY (`przedmiot`) REFERENCES `przedmioty`(`id`);
 ALTER TABLE `godziny` ADD CONSTRAINT `fk_godzina_dane_szkoly` FOREIGN KEY (`ustawienia_szkoly`) REFERENCES `dane_szkoly`(`id`);
 ALTER TABLE `obecnosci_na_lekcji` ADD CONSTRAINT `fk_ol_lekcja` FOREIGN KEY (`lekcja`) REFERENCES `lekcje`(`id`);
+ALTER TABLE `obecnosci_na_lekcji` ADD CONSTRAINT `fk_ol_uczen` FOREIGN KEY (`uczen`) REFERENCES `uczniowie`(`id`);
 
 INSERT INTO `dane_szkoly` (`obszar_szkoly`) VALUES ("[]");
 INSERT INTO `przedmioty` (`nazwa`) VALUES ("-");
