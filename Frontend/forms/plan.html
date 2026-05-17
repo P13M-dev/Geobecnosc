@@ -71,9 +71,9 @@
       <form id="scheduleForm">
         <div class="field">
           <label for="scheduleClass">Do której klasy należy</label>
-          <select id="scheduleClass" ></select>
+          <select id="scheduleClass" required></select>
           <label for="scheduleWeek">Na któy tydzień jest to plan?</label>
-          <input type="week" id="scheduleWeek"name="scheduleWeek" />
+          <input type="week" id="scheduleWeek"name="scheduleWeek"required />
         </div>
 
         <table>
@@ -228,6 +228,25 @@
         
         document.getElementById('scheduleForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            pierwszyDzien = document.getElementById("scheduleWeek").valueAsDate
+            console.log("Pierwszy dzień: " + pierwszyDzien)
+
+            planArray = []
+            for (i = 0;i<5;i++){
+                planArray.push(new Array(9))
+                for (j = 0;j<10;j++){        
+                    planArray[i][j] = {"przedmiot": null, "godzina": null}
+                }
+            }
+            timeInputs = document.querySelectorAll("tr input")
+            for (i = 0;i<timeInputs.length;i++){
+
+                planArray.forEach((dzien) =>{
+                    dzien[i].godzina = timeInputs[i].value
+
+                })
+            }
+            console.log(planArray)            
             
         });
         zaladujPrzedmioty();
