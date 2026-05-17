@@ -233,20 +233,21 @@
 
             planArray = []
             for (i = 0;i<5;i++){
-                planArray.push(new Array(9))
+                let data = 0;
+                planArray.push({dzien: data,plan:new Array(9)} )
                 for (j = 0;j<10;j++){        
-                    planArray[i][j] = {"przedmiot": null, "godzina": null}
+                    planArray[i].plan[j] = {"przedmiot": null, "godzina": null}
                 }
             }
             timeInputs = document.querySelectorAll("tr input")
             for (i = 0;i<timeInputs.length;i++){
                 planArray.forEach((dzien) =>{
-                    dzien[i].godzina = timeInputs[i].value
+                    dzien.plan[i].godzina = i+1;
                 })
             }
             przedmiotySelects = document.querySelectorAll("td select")
             for (i = 0;i<przedmiotySelects.length;i++){
-                planArray[i%5][Math.floor(i/5)].przedmiot = przedmiotySelects[i].value
+                planArray[i%5].plan[Math.floor(i/5)].przedmiot = przedmiotySelects[i].value
             }
 
             console.log(planArray)            
