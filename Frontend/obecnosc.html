@@ -13,6 +13,7 @@
         font-family: "Inter", "Segoe UI", sans-serif;
         color: #1f2f24;
       }
+      
       .page-shell {
         max-width: 960px;
         margin: 40px auto;
@@ -102,19 +103,21 @@
       .back-link:hover {
         text-decoration: underline;
       }
-      @media (max-width: 900px) {
-        .controls {
-          grid-template-columns: repeat(2, minmax(180px, 1fr));
-        }
-      }
-      @media (max-width: 640px) {
+      
+      @media (max-width: 720px) {
         .controls {
           grid-template-columns: 1fr;
         }
+        .table-wrapper{
+            overflow: auto;
+        }
         .attendance-table th,
         .attendance-table td {
-          padding: 12px 10px;
+          padding: 1vw;
         }
+      }
+      button{
+        margin-top: 10%;
       }
     </style>
     <script src="script.js"></script>
@@ -142,6 +145,7 @@
         </div>
       </div>
 
+      <div class="table-wrapper">
       <table class="attendance-table">
         <thead>
           <tr>
@@ -206,6 +210,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
 
       <a class="back-link" href="dashboard-admin.html">Powrót do panelu</a>
     </div>

@@ -59,7 +59,7 @@
             grid-template-columns: repeat(3, 1fr);
         }
         .dashboard-grid.secondary-items {
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(4, 1fr);
         }
         @media (max-width: 1200px) {
             .dashboard-grid.secondary-items {
@@ -128,15 +128,15 @@
                 </section>
 
                 <section class="dashboard-card">
-                    <h3>Ustawienia</h3>
-                    <p>Zmień swoje preferencje lub dane oraz dane szkoły</p>
-                    <button class="btn" onclick="alert('weewoo')">Edytuj ustawienia</button>
-                </section>
-
-                <section class="dashboard-card">
                     <h3>Dodaj obszar szkoły</h3>
                     <p>Zaznacz obszar na mapie, który będzie rozpoznawany jako szkoła</p>
                     <button class="btn" onclick="window.location.href='mapa.html'">Dodaj obszar</button>
+                </section>
+                
+                <section class="dashboard-card">
+                    <h3>Nowy plan lekcji</h3>
+                    <p>Utwórz nowy plan lekcji z na dany tydzień korzystając z utworzonych przedmiotów</p>
+                    <button class="btn" onclick="window.location.href='forms/plan.html'">Utwórz</button>
                 </section>
             </div>
 
@@ -149,11 +149,6 @@
                 <section class="dashboard-card">
                     <h3>Nowa klasa</h3>
                     <button class="btn" onclick="window.location.href='forms/klasa.html'">Utwórz</button>
-                </section>
-
-                <section class="dashboard-card">
-                    <h3>Nowy plan lekcji</h3>
-                    <button class="btn" onclick="window.location.href='forms/plan.html'">Utwórz</button>
                 </section>
 
                 <section class="dashboard-card">
