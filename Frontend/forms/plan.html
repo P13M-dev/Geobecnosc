@@ -71,7 +71,7 @@
       <form id="scheduleForm">
         <div class="field">
           <label for="scheduleClass">Do której klasy należy</label>
-          <select id="scheduleClass" ></select>
+          <select id="scheduleClass" required></select>
           <label for="scheduleWeek">Na który tydzień jest to plan?</label>
           <input type="week" id="scheduleWeek"name="scheduleWeek"required />
         </div>
@@ -181,24 +181,21 @@
     async function zaladujPrzedmioty() {
       let przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty")),
         data = 0;
-      document.querySelectorAll("tbody tr").forEach(async (element, index1) => {
-        let dane = new URLSearchParams();
+      let dane = new URLSearchParams();
         dane.append("klasa", document.getElementById("scheduleClass").value);
         dane.append("data", data);
-        let lekcje = JSON.parse(await zapytajSerwer("wybierzCalyPlan", dane));
-        console.log(lekcje);
+             
+      let lekcje = JSON.parse(await zapytajSerwer("wybierzCalyPlan", dane));
+       console.log(lekcje);
+      document.querySelectorAll("tbody tr").forEach(async (element, index1) => {
         element.querySelectorAll("td").forEach((td, index2) => {
           let wybor = document.createElement("select");
           przedmioty.forEach((przedmiot) => {
             let opcje = document.createElement("option");
             opcje.value = przedmiot.id;
             opcje.textContent = przedmiot.nazwa;
-            if (lekcje.length == 0 && przedmiot.nazwa == "-")
-              opcje.selected = true;
-            else if (
-              lekcje.length > 0 &&
-              przedmiot.nazwa == lekcje[index2]["nazwa"]
-            )
+            if (lekcje.length == 0 && przedmiot.nazwa == "-") opcje.selected = true;
+            else if ( lekcje.length > 0 && przedmiot.nazwa == lekcje[index2+index1*5]["nazwa"])
               opcje.selected = true;
             wybor.appendChild(opcje);
           });
@@ -216,7 +213,7 @@
       });
     }
 
-        async function zaladujKlasy(){
+    async function zaladujKlasy(){
             klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));
             klasy.forEach(klasa => {
                 let wybor = document.createElement("option");
@@ -226,35 +223,43 @@
             });
         }
         
-        document.getElementById('scheduleForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            pierwszyDzien = document.getElementById("scheduleWeek").valueAsDate
-            console.log("Pierwszy dzień: " + pierwszyDzien)
 
-            planArray = []
-            for (i = 0;i<5;i++){
-                let data = 0;
-                planArray.push({dzien: data,plan:new Array(9)} )
-                for (j = 0;j<10;j++){        
-                    planArray[i].plan[j] = {"przedmiot": null, "godzina": null}
-                }
-            }
-            timeInputs = document.querySelectorAll("tr input")
-            for (i = 0;i<timeInputs.length;i++){
-                planArray.forEach((dzien) =>{
-                    dzien.plan[i].godzina = i+1;
-                })
-            }
-            przedmiotySelects = document.querySelectorAll("td select")
-            for (i = 0;i<przedmiotySelects.length;i++){
-                planArray[i%5].plan[Math.floor(i/5)].przedmiot = przedmiotySelects[i].value
-            }
+    document.getElementById('scheduleForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        pierwszyDzien = document.getElementById("scheduleWeek").valueAsDate
+        console.log("Pierwszy dzień: " + pierwszyDzien)
 
-            console.log(planArray)            
-            
-        });
-        zaladujPrzedmioty();
-        zaladujKlasy();
-        zaladujGodziny();
-    </script>
+        planArray = []
+        for (i = 0;i<5;i++){
+            let data = new Date();
+            data.setDate(pierwszyDzien.getDate() + i);
+            data = data.toISOString().split('T')[0];
+            planArray.push({data: data,plan:new Array(9)} )
+            for (j = 0;j<10;j++){        
+                planArray[i].plan[j] = {"przedmiot": null, "godzina": null}
+            }
+        }
+        timeInputs = document.querySelectorAll("tr input")
+        for (i = 0;i<timeInputs.length;i++){
+            planArray.forEach((dzien) =>{
+                dzien.plan[i].godzina = i+1;
+            })
+        }
+        przedmiotySelects = document.querySelectorAll("td select")
+        for (i = 0;i<przedmiotySelects.length;i++){
+            planArray[i%5].plan[Math.floor(i/5)].przedmiot = przedmiotySelects[i].value
+        }
+        let dane = new URLSearchParams;
+        dane.append("klasa",document.getElementById("scheduleClass").value);
+        dane.append("plan",JSON.stringify(planArray));
+        console.log(await zapytajSerwer("dodajPlan",dane));
+        
+    });
+
+
+
+    zaladujPrzedmioty();
+    zaladujKlasy();
+    zaladujGodziny();
+  </script>
 </html>
