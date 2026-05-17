@@ -178,16 +178,48 @@
     </div>
   </body>
   <script>
+    const today = new Date();
+    const firstDayOfYear = new Date(today.getFullYear(), 0, 1);
+    const pastDaysOfYear = (today - firstDayOfYear) / 86400000;
+
+    function getDateFromWeek(weekString) {
+      const [year, week] = weekString.split('-W').map(Number);
+      
+      const date = new Date(year, 0, 1);
+
+      const day = date.getDay();
+      const diff = (day <= 4 ? 1 - day : 8 - day);
+      date.setDate(date.getDate() + diff);
+
+      date.setDate(date.getDate() + (week - 1) * 7);
+      
+      return date;
+    }
+
+    const weekNumber = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+    if(navigator.userAgent.toLowerCase().includes('firefox')){
+      document.getElementById("scheduleWeek").value = weekNumber;
+    } else {
+      document.getElementById("scheduleWeek").value = (new Date()).getFullYear()+"-W"+weekNumber;
+    }
+    
     async function zaladujPrzedmioty() {
       let przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty")),
-        data = 0;
-      let dane = new URLSearchParams();
+      data = ((document.getElementById("scheduleWeek").valueAsDate));
+      if(data==null) data = getDateFromWeek((new Date()).getFullYear()+"-W"+document.getElementById("scheduleWeek").value);
+      let lekcje = []
+      let temp = new Date();
+      for(let i = 0;i<5;i++){
+        temp.setDate(data.getDate()+i);
+        let dane = new URLSearchParams();
         dane.append("klasa", document.getElementById("scheduleClass").value);
-        dane.append("data", data);
-             
-      let lekcje = JSON.parse(await zapytajSerwer("wybierzCalyPlan", dane));
-       console.log(lekcje);
+        dane.append("data", temp.toISOString().split('T')[0]); 
+        lekcje.push(JSON.parse(await zapytajSerwer("wybierzCalyPlan", dane)))
+
+      }
+      console.log(lekcje)
       document.querySelectorAll("tbody tr").forEach(async (element, index1) => {
+
         element.querySelectorAll("td").forEach((td, index2) => {
           let wybor = document.createElement("select");
           przedmioty.forEach((przedmiot) => {
@@ -195,11 +227,12 @@
             opcje.value = przedmiot.id;
             opcje.textContent = przedmiot.nazwa;
             if (lekcje.length == 0 && przedmiot.nazwa == "-") opcje.selected = true;
-            else if ( lekcje.length > 0 && przedmiot.nazwa == lekcje[index2+index1*5]["nazwa"])
+            else if ( lekcje[index2].length > 0 && przedmiot.nazwa == lekcje[index2][index1]["nazwa"])
               opcje.selected = true;
             wybor.appendChild(opcje);
           });
           wybor.id = `lekcja_${index1 + 1}_${index2}`;
+          td.innerHTML = "";
           td.appendChild(wybor);
         });
       });
@@ -215,10 +248,15 @@
 
     async function zaladujKlasy(){
             klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));
+            pierwsza = true
             klasy.forEach(klasa => {
                 let wybor = document.createElement("option");
                 wybor.value = klasa.id;
                 wybor.textContent = klasa.nazwa
+                if(pierwsza) {
+                  pierwsza = false;
+                  wybor.selected = true;
+                }
                 document.getElementById("scheduleClass").appendChild(wybor);
             });
         }
@@ -227,8 +265,7 @@
     document.getElementById('scheduleForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         pierwszyDzien = document.getElementById("scheduleWeek").valueAsDate
-        console.log("Pierwszy dzień: " + pierwszyDzien)
-
+        if(pierwszyDzien==null) pierwszyDzien = getDateFromWeek((new Date()).getFullYear()+"-W"+document.getElementById("scheduleWeek").value);
         planArray = []
         for (i = 0;i<5;i++){
             let data = new Date();
@@ -257,9 +294,14 @@
     });
 
 
+    window.addEventListener('load',async ()=>{
+        await zaladujKlasy();
+        await zaladujGodziny(); 
+        await zaladujPrzedmioty();
+        document.getElementById("scheduleWeek").addEventListener('input',zaladujPrzedmioty)
+        document.getElementById("scheduleClass").addEventListener('input',zaladujPrzedmioty)
 
-    zaladujPrzedmioty();
-    zaladujKlasy();
-    zaladujGodziny();
+    });
+
   </script>
 </html>
