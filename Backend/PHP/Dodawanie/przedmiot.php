@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if(!isAdmin()) die;
+// if(!isAdmin()) die;
 if(!isset($_POST["przedmiot"])) die;
 
 $db = Database::get();
