@@ -6,6 +6,7 @@
     <title>Przedmiot - Geobecność</title>
     <link rel="stylesheet" href="formsStyle.css">
     <script src="../script.js"></script>
+    <link rel="shortcut icon" href="../favicon.png" type="image/x-icon">
     <style>
     .list {
         max-height: 35vh;
@@ -33,28 +34,20 @@
         </main>
     </div>
     <script>
-        const dummyPrzedmioty = [ //php pobieranie tutaj
-            { nazwa: 'Matematyka'},
-            { nazwa: 'Geografia'},
-            { nazwa: 'Biologia'},
-            { nazwa: 'Historia'},
-            { nazwa: 'Historia'},
-            { nazwa: 'Historia'},
-            { nazwa: 'Fizyka' }
-        ];
 
-        function przedmiotyLista(przedmioty) {
+        async function przedmiotyLista() {
             const listElement = document.getElementById('przedmiotyList');
             listElement.innerHTML = '';
+            przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty"));
             przedmioty.forEach((przedmiot, index) => {
+                if(index>0){ 
                 const item = document.createElement('li');
                 item.innerHTML = `<span>${przedmiot.nazwa}</span>`;
-                listElement.appendChild(item);
-                //jeśli chcesz piotrze tu więcej atrybutów by miały czy coś to idk tutaj
+                listElement.appendChild(item);}
             });
         }
 
-        przedmiotyLista(dummyPrzedmioty);
+        
 
         document.getElementById('subjectForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -62,8 +55,10 @@
             const przedmiot = document.getElementById('subjectName').value;
             tresc.append('przedmiot', przedmiot);
             console.log(await zapytajSerwer('dodajPrzedmiot', tresc));
+            przedmiotyLista()
             //window.location.href = '../dashboard-admin.html';
         });
+        przedmiotyLista();
     </script>
 </body>
 </html>

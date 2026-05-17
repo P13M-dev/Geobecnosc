@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logowanie - Geobecność</title>
     <link rel="stylesheet" href="../styl.css">
+    <link rel="shortcut icon" href="../favicon.png" type="image/x-icon">
     <style>
         .form-container {
             max-width: 400px;
@@ -99,9 +100,18 @@
             haslo = document.getElementById("password").value;
             tresc.append("email",email);
             tresc.append("haslo",haslo);
-            console.log(await zapytajSerwer("zalogujNauczyciel",tresc));
+            odpowiedz = await zapytajSerwer("zalogujNauczyciel",tresc);
+            odpowiedz = odpowiedz.trim();
+            console.log("["+odpowiedz+"]")
+            if(odpowiedz=="admin"){
+                window.location.href = '../dashboard-admin.html';
+            } else if(odpowiedz=="nauczyciel"){
+                window.location.href = '../dashboard-nauczyciel.html';
+            } else {
+                // błąd w logowaniu
+            }
 
-            //window.location.href = '../dashboard-admin.html';
+            
         });
     </script>
 </body>

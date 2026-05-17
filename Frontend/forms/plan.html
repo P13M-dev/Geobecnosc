@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan lekcji - Geobecność</title>
     <link rel="stylesheet" href="formsStyle.css">
+    <link rel="shortcut icon" href="../favicon.png" type="image/x-icon">
     <style>
         .field { margin-bottom: 24px; }
         .field label { display: block; margin-bottom: 8px; font-weight: 600; color: #334338; }
@@ -24,7 +25,7 @@
         <form id="scheduleForm">
             <div class="field">
                 <label for="scheduleClass">Do której klasy należy</label>
-                <input type="text" id="scheduleClass" required>
+                <select id="scheduleClass" required></select>
             </div>
             <table>
                 <thead>
@@ -39,7 +40,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th>0.</th>
+                        <th>0. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -47,7 +48,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>1.</th>
+                        <th>1. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -55,7 +56,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>2.</th>
+                        <th>2. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -63,7 +64,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>3.</th>
+                        <th>3. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -71,7 +72,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>4.</th>
+                        <th>4. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -79,7 +80,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>5.</th>
+                        <th>5. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -87,7 +88,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>6.</th>
+                        <th>6. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -95,7 +96,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>7.</th>
+                        <th>7. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -103,7 +104,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>8.</th>
+                        <th>8. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -111,7 +112,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>9.</th>
+                        <th>9. <input type="time" id="dataLek0"></th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -127,27 +128,47 @@
 </body>
     <script>
         async function zaladujPrzedmioty(){
-            przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty"));
-            document.querySelector("tbody tr").forEach(element => {
-                element.querySelector("td").forEach(td =>{
+            let przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty")),
+            data = 0;
+            (document.querySelectorAll("tbody tr")).forEach(async (element,index1) => {
+                let dane = new URLSearchParams;
+                dane.append("klasa",document.getElementById("scheduleClass").value);
+                dane.append("data",data)
+                //let lekcje = JSON.parse(await zapytajSerwer("wybierzPrzedmioty",dane))
+                (element.querySelectorAll("td")).forEach(td,index2 =>{
                     let wybor = document.createElement("select");
-                    
-                    przedmioty.foreach(przedmiot =>{
+                    przedmioty.forEach(przedmiot =>{
                         let opcje = document.createElement("option");
-
                         opcje.value = przedmiot.id;
                         opcje.textContent = przedmiot.nazwa;
+                        //if(przedmiot==lekcje[index2]["nazwa"]) opcje.selected = true;
                         wybor.appendChild(opcje);
                     });
+                    wybor.id = `lekcja_${index1+1}_${index2}`;
                     td.appendChild(wybor);
                 });
             });
         };
+
+        async function zaladujGodziny() {
+            
+        }
+
+        async function zaladujKlasy(){
+            klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));
+            klasy.forEach(klasa => {
+                let wybor = document.createElement("option");
+                wybor.value = klasa.id;
+                wybor.textContent = klasa.nazwa
+                document.getElementById("scheduleClass").appendChild(wybor);
+            });
+        }
         
         document.getElementById('scheduleForm').addEventListener('submit', function(e) {
             e.preventDefault();
             window.location.href = '../dashboard-admin.html';
         });
         zaladujPrzedmioty();
+        zaladujKlasy();
     </script>
 </html>

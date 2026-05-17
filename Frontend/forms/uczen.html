@@ -6,6 +6,12 @@
     <title>Uczeń - Geobecność</title>
     <link rel="stylesheet" href="formsStyle.css">
     <script src="../script.js"></script>
+    <link rel="shortcut icon" href="../favicon.png" type="image/x-icon">
+    <style>
+    .list {
+        max-height: 60vh;
+    }
+    </style>
 </head>
 <body>
     <div class="page-shell">
@@ -35,8 +41,7 @@
                 </div>
                 <div class="field">
                     <label for="studentClass">Klasa</label>
-                    <!-- <input type="text" id="studentClass"  required> -->
-                    <select id="studentClass"></select>
+                    <select id="studentClass" required></select>
                 </div>
                 <button type="submit" class="btn">Zapisz ucznia</button>
             </form>
@@ -45,33 +50,21 @@
     </div>
 </body>
     <script>
-         const dummyUczniowie = [ //php pobieranie tutaj
-            { imie: 'Janek', nazwisko: "Wójcik"},
-            { imie: 'Janek2', nazwisko: "Wójcik2"},
-            { imie: 'Janek3', nazwisko: "Wójcik3"},
-            { imie: 'Janek4', nazwisko: "Wójcik4"},
-            { imie: 'Janek5', nazwisko: "Wójcik5"},
-            { imie: 'Janek6', nazwisko: "Wójcik6"},
-            { imie: 'Janek7', nazwisko: "Wójcik7"},
-            { imie: 'Janek8', nazwisko: "Wójcik8"}
-            
-        ];
 
-        function uczniowieLista(uczniowie) {
+
+        async function uczniowieLista(uczniowie) {
             const listElement = document.getElementById('uczniowieList');
             listElement.innerHTML = '';
+            uczniowie = JSON.parse(await zapytajSerwer("wybierzUczniow"));
             uczniowie.forEach((uczen, index) => {
                 const item = document.createElement('li');
                 item.innerHTML = `<span>${uczen.imie} ${uczen.nazwisko}</span>`;
                 listElement.appendChild(item);
-                //jeśli chcesz piotrze tu więcej atrybutów by miały czy coś to idk tutaj
             });
         }
 
-        uczniowieLista(dummyUczniowie)
-
-        async function zaladujPrzedmioty(){
-            klasa = JSON.parse(await zapytajSerwer("wybierzKlasy"));
+        async function zaladujKlasy(){
+            klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));
             klasy.forEach(klasa => {
                 let wybor = document.createElement("option");
                 wybor.value = klasa.id;
@@ -79,6 +72,7 @@
                 document.getElementById("studentClass").appendChild(wybor);
             });
         }
+
         document.getElementById('studentForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             let tresc = new URLSearchParams,
@@ -92,11 +86,10 @@
             tresc.append("email",email);
             tresc.append("haslo",haslo);
             tresc.append("klasa",klasa);
-
-            console.log(tresc);
             console.log(await zapytajSerwer("dodajUcznia",tresc));
-            window.location.href = '../dashboard-admin.html';
+            uczniowieLista();
         });
-        zaladujPrzedmioty();
+        zaladujKlasy();
+        uczniowieLista();
     </script>
 </html>

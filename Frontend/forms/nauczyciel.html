@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nauczyciel - Geobecność</title>
     <link rel="stylesheet" href="formsStyle.css">
+    <link rel="shortcut icon" href="../favicon.png" type="image/x-icon">
     <style>
     .list {
         max-height: 62vh;
@@ -49,34 +50,18 @@
         <div class="nav"><a href="../dashboard-admin.html">Powrót do panelu</a></div>
     </div>
     <script>
-        const dummyNauczyciele = [ //php pobieranie tutaj
-            { imie: 'Mariusz', nazwisko: "Rasz"},
-            { imie: 'Mariusz2', nazwisko: "Rasz2"},
-            { imie: 'Mariusz3', nazwisko: "Rasz3"},
-            { imie: 'Mariusz4', nazwisko: "Rasz4"},
-            { imie: 'Mariusz5', nazwisko: "Rasz5"},
-            { imie: 'Mariusz6', nazwisko: "Rasz6"},
-            { imie: 'Mariusz7', nazwisko: "Rasz7"},
-            { imie: 'Mariusz7', nazwisko: "Rasz7"},
-            { imie: 'Mariusz7', nazwisko: "Rasz7"},
-            { imie: 'Mariusz7', nazwisko: "Rasz7"},
-            { imie: 'Mariusz7', nazwisko: "Rasz7"},
-            { imie: 'Mariusz8', nazwisko: "Rasz8"}
-            
-        ];
-
-        function nauczycieleLista(nauczyciele) {
+        async function nauczycieleLista() {
             const listElement = document.getElementById('nauczycieleList');
             listElement.innerHTML = '';
+            nauczyciele = JSON.parse(await zapytajSerwer("wybierzNauczycieli"));
             nauczyciele.forEach((nauczyciel, index) => {
                 const item = document.createElement('li');
                 item.innerHTML = `<span>${nauczyciel.imie} ${nauczyciel.nazwisko}</span>`;
                 listElement.appendChild(item);
-                //jeśli chcesz piotrze tu więcej atrybutów by miały czy coś to idk tutaj
             });
         }
 
-        nauczycieleLista(dummyNauczyciele)
+        
 
         async function zaladujPrzedmioty(){
             let przedmioty = await zapytajSerwer("wybierzPrzedmioty");
@@ -106,9 +91,11 @@
             tresc.append("przedmiot",przedmiot);
             console.log(await zapytajSerwer("dodajNauczyciela",tresc));
             alert('Nauczyciel zapisany (tymczasowo).');
+            nauczycieleLista();
             //window.location.href = '../dashboard-admin.html';
         });
         zaladujPrzedmioty();
+        nauczycieleLista();
     </script>
 </body>
 </html>

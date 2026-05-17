@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Geobecność</title>
     <link rel="stylesheet" href="styl.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <style>
         .dashboard-header {
             display: flex;
@@ -72,14 +73,15 @@
             background: #15803d;
         }
     </style>
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="page-shell">
         <header class="dashboard-header">
             <h1>GEOBECNOŚĆ</h1>
             <div class="user-info">
-                <span>Witaj, [Nazwa Użytkownika]</span>
-                <button class="btn-logout">Wyloguj się</button>
+                <span id="nazwa">Witaj, [Nazwa Użytkownika]</span>
+                <button class="btn-logout" id="logout" >Wyloguj się</button>
             </div>
         </header>
 
@@ -88,12 +90,6 @@
                 <h3>Sprawdź obecność</h3>
                 <p>Opis ig</p>
                 <button onclick="alert('weewoo')">Zobacz rekordy</button>
-            </section>
-
-            <section class="dashboard-card">
-                <h3>Dodaj obszar</h3>
-                <p>Opis ig</p>
-                <button><a href="test.html">Oznacz na mapie</a></button>
             </section>
 
             <section class="dashboard-card">
@@ -108,5 +104,19 @@
     <footer>
         <p>Stworzone przez Piotra Migasa, Bartłomieja Senatora, Dominika Chmielowca, Kacpra Maciejewicza, Gabrielę Piekarską i Oleksandra Tkachenko </p>
     </footer>
+    <script>
+        async function wypelnij_imie() {
+            dane = JSON.parse(await zapytajSerwer("wybierzImieNazwisko"))
+            document.getElementById("nazwa").innerText = "Witaj, "+dane.imie[0]+". "+dane.nazwisko;
+        }
+
+        document.getElementById("logout").addEventListener('click',()=>{
+            zapytajSerwer("wylogujNauczyciel");
+            window.location.href = "index.html";
+        })
+
+        wypelnij_imie();
+
+    </script>
 </body>
 </html>

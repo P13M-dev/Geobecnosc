@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Geobecność</title>
     <link rel="stylesheet" href="styl.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <style>
         body {
             display: flex;
@@ -106,14 +107,15 @@
 
 
     </style>
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="page-shell">
         <header class="dashboard-header">
             <h1>GEOBECNOŚĆ</h1>
             <div class="user-info">
-                <p>Witaj, [Nazwa Użytkownika]</p>
-                <button class="btn-logout" onclick="window.location.href='index.html'">Wyloguj się</button>
+                <span id="nazwa">Witaj, [Nazwa Użytkownika]</span>
+                <button class="btn-logout" id="logout" >Wyloguj się</button>
             </div>
         </header>
 
@@ -170,5 +172,19 @@
     <footer>
         <p>Stworzone przez Piotra Migasa, Bartłomieja Senatora, Dominika Chmielowca, Kacpra Maciejewicza, Gabrielę Piekarską i Oleksandra Tkachenko</p>
     </footer>
+    <script>
+        async function wypelnij_imie() {
+            dane = JSON.parse(await zapytajSerwer("wybierzImieNazwiskoN"))
+            document.getElementById("nazwa").innerText = "Witaj, "+dane.imie[0]+". "+dane.nazwisko;
+        }
+
+        document.getElementById("logout").addEventListener('click',async ()=>{
+            await zapytajSerwer("wylogujNauczyciel");
+            window.location.href = "index.html";
+        })
+
+        wypelnij_imie();
+
+    </script>
 </body>
 </html>
