@@ -1,164 +1,246 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Obecność - Geobecność</title>
-    <link rel="stylesheet" href="styl.css">
+    <link rel="stylesheet" href="styl.css" />
     <style>
-        body { margin: 0; background: #ebf5ee; font-family: "Inter", "Segoe UI", sans-serif; color: #1f2f24; }
-        .page-shell { max-width: 960px; margin: 40px auto; padding: 32px; background: #ffffff; border: 1px solid #d8edd6; border-radius: 28px; box-shadow: 0 24px 45px rgba(29, 78, 43, 0.08); }
-        h1 { margin: 0 0 18px; color: #14532d; font-size: 2.1rem; }
-        .controls { display: grid; grid-template-columns: repeat(3, minmax(220px, 1fr)); gap: 18px; margin-bottom: 24px; }
-        .control { display: flex; flex-direction: column; }
-        .control label { margin-bottom: 10px; font-weight: 700; color: #334338; }
-        .control select,
-        .control input[type="date"] { padding: 14px 16px; border-radius: 14px; border: 1px solid #c9e3cc; background: #f8faf8; font-size: 1rem; }
-        .control select:focus,
-        .control input[type="date"]:focus { outline: none; border-color: #16a34a; box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.1); }
-        .btn { margin-top: 26px; padding: 14px 22px; border: none; border-radius: 14px; background: linear-gradient(135deg, #16a34a 0%, #4ade80 100%); color: white; font-weight: 700; cursor: pointer; transition: transform 180ms ease, box-shadow 180ms ease; }
-        .btn:hover { transform: translateY(-1px); box-shadow: 0 18px 30px rgba(22, 163, 74, 0.22); }
-        .attendance-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #ffffff; border-radius: 18px; overflow: hidden; }
-        .attendance-table th, .attendance-table td { border-bottom: 1px solid #e2f0e2; padding: 16px 14px; text-align: center; }
-        .attendance-table th { background: #eff9ee; color: #14532d; font-weight: 700; }
-        .attendance-table tr:last-child td { border-bottom: none; }
-        .attendance-table td:first-child { text-align: left; color: #334338; font-weight: 600; }
-        .status-present { color: #166534; font-weight: 700; }
-        .status-absent { color: #b91c1c; font-weight: 700; }
-        .back-link { display: inline-flex; align-items: center; margin-top: 22px; color: #16a34a; text-decoration: none; font-weight: 700; }
-        .back-link:hover { text-decoration: underline; }
-        @media (max-width: 900px) {
-            .controls { grid-template-columns: repeat(2, minmax(180px, 1fr)); }
+      body {
+        margin: 0;
+        background: #ebf5ee;
+        font-family: "Inter", "Segoe UI", sans-serif;
+        color: #1f2f24;
+      }
+      .page-shell {
+        max-width: 960px;
+        margin: 40px auto;
+        padding: 32px;
+        background: #ffffff;
+        border: 1px solid #d8edd6;
+        border-radius: 28px;
+        box-shadow: 0 24px 45px rgba(29, 78, 43, 0.08);
+      }
+      h1 {
+        margin: 0 0 18px;
+        color: #14532d;
+        font-size: 2.1rem;
+      }
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(220px, 1fr));
+        gap: 18px;
+        margin-bottom: 24px;
+      }
+      .control {
+        display: flex;
+        flex-direction: column;
+      }
+      .control label {
+        margin-bottom: 10px;
+        font-weight: 700;
+        color: #334338;
+      }
+      .control select,
+      .control input[type="date"] {
+        padding: 14px 16px;
+        border-radius: 14px;
+        border: 1px solid #c9e3cc;
+        background: #f8faf8;
+        font-size: 1rem;
+      }
+      .control select:focus,
+      .control input[type="date"]:focus {
+        outline: none;
+        border-color: #16a34a;
+        box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.1);
+      }
+      .attendance-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: #ffffff;
+        border-radius: 18px;
+        overflow: hidden;
+      }
+      .attendance-table th,
+      .attendance-table td {
+        border-bottom: 1px solid #e2f0e2;
+        padding: 16px 14px;
+        text-align: center;
+      }
+      .attendance-table th {
+        background: #eff9ee;
+        color: #14532d;
+        font-weight: 700;
+      }
+      .attendance-table tr:last-child td {
+        border-bottom: none;
+      }
+      .attendance-table td:first-child {
+        text-align: left;
+        color: #334338;
+        font-weight: 600;
+      }
+      .status-present {
+        color: #166534;
+        font-weight: 700;
+      }
+      .status-absent {
+        color: #b91c1c;
+        font-weight: 700;
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 22px;
+        color: #16a34a;
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
+      @media (max-width: 900px) {
+        .controls {
+          grid-template-columns: repeat(2, minmax(180px, 1fr));
         }
-        @media (max-width: 640px) {
-            .controls { grid-template-columns: 1fr; }
-            .attendance-table th, .attendance-table td { padding: 12px 10px; }
+      }
+      @media (max-width: 640px) {
+        .controls {
+          grid-template-columns: 1fr;
         }
+        .attendance-table th,
+        .attendance-table td {
+          padding: 12px 10px;
+        }
+      }
     </style>
     <script src="script.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="page-shell">
-        <h1>Obecność</h1>
-        <div class="controls">
-            <div class="control">
-                <label for="classSelect">Wybierz klasę</label>
-                <select id="classSelect">
-
-                </select>
-            </div>
-            <div class="control">
-                <label for="daySelect">Wybierz datę</label>
-                <input type="date" id="daySelect">
-            </div>
-            <div class="control">
-                <button id="loadButton" class="btn" type="button">Pokaż obecność</button>
-                <!-- php pobieranie danych do uczniów tutaj tutaj w pszyłości -->
-            </div>
+      <h1>Obecność</h1>
+      <div class="controls">
+        <div class="control">
+          <label for="classSelect">Wybierz klasę</label>
+          <select id="classSelect">
+            <option value="1">1c</option>
+            <option value="1">2c</option>
+            <option value="1">3c</option>
+            <option value="1">4c</option>
+          </select>
         </div>
+        <div class="control">
+          <label for="daySelect">Wybierz datę</label>
+          <input type="date" id="daySelect" />
+        </div>
+        <div class="control">
+          <button id="loadButton" class="btn" onclick="">Pokaż obecność</button>
+          <!-- php pobieranie danych do uczniów tutaj tutaj w pszyłości -->
+        </div>
+      </div>
 
-        <table class="attendance-table">
-            <thead>
-                <tr>
-                    <th>Uczeń</th>
-                    <!-- php pobieranie ilości lekcji tutaj w pszyłości -->
-                    <th>Lekcja 1</th>
-                    <th>Lekcja 2</th>
-                    <th>Lekcja 3</th>
-                    <th>Lekcja 4</th>
-                    <th>Lekcja 5</th>
-                    <th>Lekcja 6</th>
-                    <th>Lekcja 7</th>
-                    <th>Lekcja 8</th>
-                </tr>
-            </thead>
-            <tbody id="attendanceBody">
-                    <!-- php pobieranie uczniów i obecności tutaj w pszyłości -->
-                <tr>
-                    <td>A. Dujka</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-absent">✘</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-absent">✘</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-absent">✘</td>
-                    <td class="status-present">✔</td>
-                </tr>
-                <tr>
-                    <td>Mariusz Rasz</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-present">✔</td>
-                </tr>
-                <tr>
-                    <td>A S</td>
-                    <td class="status-absent">✘</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-absent">✘</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-absent">✘</td>
-                    <td class="status-present">✔</td>
-                    <td class="status-absent">✘</td>
-                </tr>
-                <tr>
-                    <td>Janek Wójcik</td>
+      <table class="attendance-table">
+        <thead>
+          <tr>
+            <th>Uczeń</th>
+            <!-- php pobieranie ilości lekcji tutaj w pszyłości -->
+            <th>Lekcja 1</th>
+            <th>Lekcja 2</th>
+            <th>Lekcja 3</th>
+            <th>Lekcja 4</th>
+            <th>Lekcja 5</th>
+            <th>Lekcja 6</th>
+            <th>Lekcja 7</th>
+            <th>Lekcja 8</th>
+          </tr>
+        </thead>
+        <tbody id="attendanceBody">
+          <!-- php pobieranie uczniów i obecności tutaj w pszyłości -->
+          <tr>
+            <td>A. Dujka</td>
+            <td class="status-present">✔</td>
+            <td class="status-present">✔</td>
+            <td class="status-absent">✘</td>
+            <td class="status-present">✔</td>
+            <td class="status-absent">✘</td>
+            <td class="status-present">✔</td>
+            <td class="status-absent">✘</td>
+            <td class="status-present">✔</td>
+          </tr>
+          <tr>
+            <td>Mariusz Rasz</td>
+            <td class="status-present">✔</td>
+            <td class="status-present">✔</td>
+            <td class="status-present">✔</td>
+            <td class="status-present">✔</td>
+            <td class="status-present">✔</td>
+            <td class="status-present">✔</td>
+            <td class="status-present">✔</td>
+            <td class="status-present">✔</td>
+          </tr>
+          <tr>
+            <td>A S</td>
+            <td class="status-absent">✘</td>
+            <td class="status-present">✔</td>
+            <td class="status-present">✔</td>
+            <td class="status-absent">✘</td>
+            <td class="status-present">✔</td>
+            <td class="status-absent">✘</td>
+            <td class="status-present">✔</td>
+            <td class="status-absent">✘</td>
+          </tr>
+          <tr>
+            <td>Janek Wójcik</td>
 
-                    <td class="status-absent">✘</td>
-                    <td class="status-absent">✘</td>
-                    <td class="status-absent">✘</td>
-                    <td class="status-absent">✘</td>
-                    <td class="status-absent">✘</td>
-                    <td class="status-absent">✘</td>
-                    <td class="status-absent">✘</td>
-                    <td class="status-absent">✘</td>
+            <td class="status-absent">✘</td>
+            <td class="status-absent">✘</td>
+            <td class="status-absent">✘</td>
+            <td class="status-absent">✘</td>
+            <td class="status-absent">✘</td>
+            <td class="status-absent">✘</td>
+            <td class="status-absent">✘</td>
+            <td class="status-absent">✘</td>
+          </tr>
+        </tbody>
+      </table>
 
-                </tr>
-            </tbody>
-        </table>
-
-        <a class="back-link" href="dashboard-admin.html">Powrót do panelu</a>
+      <a class="back-link" href="dashboard-admin.html">Powrót do panelu</a>
     </div>
-    <script>
-
-        
-        async function zaladujKlasy() {
-            let klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));
-            klasy.forEach(klasa => {
-                let opcja = document.createElement('option');
-                opcja.value = klasa.id;
-                opcja.innerHTML = klasa.nazwa;
-                document.getElementById("classSelect").appendChild(opcja);
-            });
-        }
-
-        document.getElementById('loadButton').addEventListener('click', async function(e) {
-            e.preventDefault();
-            let tresc = new URLSearchParams,
-            data = document.getElementById("daySelect").value;
-            klasa = document.getElementById("classSelect").value;
-            tresc.append("data",data);
-            tresc.append("klasa",klasa);
-            
-
-            
-
-            console.log(tresc);
-
-            // console.log(await zapytajSerwer("dodajPrzedmiot",tresc));
-            
-            obecnosci = JSON.parse(await zapytajSerwer("obecnosci",tresc));
-            // foreach hour for each uczen aaaaaaaaaaaaaaaaaaaaaaaaaa
-            
-            //window.location.href = '../dashboard-admin.html';
+  </body>
+      <script>
+      async function zaladujKlasy() {
+        let klasy = JSON.parse(await zapytajSerwer("wybierzKlasy"));
+        klasy.forEach((klasa) => {
+          let opcja = document.createElement("option");
+          opcja.value = klasa.id;
+          opcja.innerHTML = klasa.nazwa;
+          document.getElementById("classSelect").appendChild(opcja);
         });
-        zaladujKlasy();
+      }
+
+      document
+        .getElementById("loadButton")
+        .addEventListener("click", async function (e) {
+          e.preventDefault();
+          let tresc = new URLSearchParams(),
+            data = document.getElementById("daySelect").value;
+          klasa = document.getElementById("classSelect").value;
+          tresc.append("data", data);
+          tresc.append("klasa", klasa);
+
+          console.log(tresc);
+
+          //czemu eventListener a nie onclick??
+
+          // console.log(await zapytajSerwer("dodajPrzedmiot",tresc));
+
+          obecnosci = JSON.parse(await zapytajSerwer("obecnosci", tresc));
+          // foreach hour for each uczen aaaaaaaaaaaaaaaaaaaaaaaaaa
+
+          //window.location.href = '../dashboard-admin.html';
+        });
+      zaladujKlasy();
     </script>
-</body>
 </html>

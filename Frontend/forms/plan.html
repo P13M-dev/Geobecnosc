@@ -124,6 +124,7 @@
         </form>
         <div class="nav"><a href="../dashboard-admin.html">Powrót do panelu</a></div>
     </div>
+</body>
     <script>
         async function zaladujPrzedmioty(){
             przedmioty = JSON.parse(await zapytajSerwer("wybierzPrzedmioty"));
@@ -149,5 +150,4 @@
         });
         zaladujPrzedmioty();
     </script>
-</body>
 </html>

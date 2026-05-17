@@ -122,3 +122,15 @@ h1 {
         flex-direction: column;
     }
 }
+select {
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid #c9e3cc;
+  background: #f8faf8;
+  font-size: 1rem;
+}
+select:focus {
+  outline: none;
+  border-color: #16a34a;
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.1);
+}
