@@ -58,10 +58,12 @@ h1 {
     color: #334338;
     }
 .field input {
-    width: 93%;
-    padding: 12px 14px;
+    width: 100%;
+    padding: 12px 3px;
     border: 1px solid #c9e3cc;
     border-radius: 10px;
+    font-size: 110%;
+    font-family: inherit;
     }
 .field input:focus {
     outline: none;

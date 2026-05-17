@@ -9,13 +9,12 @@
     <style>
         .field { margin-bottom: 24px; }
         .field label { display: block; margin-bottom: 8px; font-weight: 600; color: #334338; }
-        .field input, .field select { width: 100%; padding: 12px 14px; border: 1px solid #c9e3cc; border-radius: 10px; }
+        .field select { width: 100%; padding: 12px 14px; border: 1px solid #c9e3cc; border-radius: 10px; }
         .field input:focus, .field select:focus { outline: none; border-color: #16a34a; }
         table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
         th, td { border: 1px solid #d9edd6; padding: 12px; text-align: center; background: #ffffff; }
         th { background: #e6f4e6; color: #14532d; }
         .cell-input { width: 100%; border: 1px solid #c9e3cc; border-radius: 8px; padding: 8px; }
-
     </style>
     <script src="../script.js"></script>
 </head>
@@ -26,7 +25,10 @@
             <div class="field">
                 <label for="scheduleClass">Do której klasy należy</label>
                 <select id="scheduleClass" required></select>
+                <label for="scheduleWeek">Na któy tydzień jest to plan?</label>
+                <input type="week" name="scheduleWeek">
             </div>
+            
             <table>
                 <thead>
                     <tr>
