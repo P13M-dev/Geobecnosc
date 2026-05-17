@@ -68,6 +68,7 @@
             cursor: default;
         }
     </style>
+    <script src="script.js"></script>
 </head>
 <body>
     <div id="map"></div>
@@ -77,7 +78,7 @@
         <p>Narysuj prostokąt na mapie, aby wybrać współrzędne. Następnie naciśnij "Zapisz współrzędne".</p>
         <pre id="coords">Brak wybranego obszaru.</pre>
         <!-- <button id="drawButton" >Włącz przeciąganie</button> -->
-        <button id="saveButton" disabled>Zapisz współrzędne</button>
+        <button id="saveButton" >Zapisz współrzędne</button>
         <button id="backButton" onclick="window.location.href='dashboard-admin.html'" >Powrót</button>
 
     </div>
@@ -125,15 +126,16 @@
                 });
             });
 
-            document.getElementById('saveButton').addEventListener('click', () => {
+            document.getElementById('saveButton').addEventListener('click', async () => {
                 if (!currentPolygon) return;
                 points = currentPolygon.getPath().getArray().map(latLng => ({
                     lng: latLng.lng(), //x 
                     lat: latLng.lat() // y
                 }));
                 alert('Współrzędne zapisane.');
-                
-                console.log('Zapisane współrzędne:', points); //PRZESYŁANIE
+                let dane = new URLSearchParams;
+                dane.append("obszar",JSON.stringify(points))
+                console.log(await zapytajSerwer("zapiszObszarSzkoly",dane)); //PRZESYŁANIE            
             });
 
             // document.getElementById('drawButton').addEventListener('click', () => {

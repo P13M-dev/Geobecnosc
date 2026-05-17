@@ -134,14 +134,16 @@
                 let dane = new URLSearchParams;
                 dane.append("klasa",document.getElementById("scheduleClass").value);
                 dane.append("data",data);
-                //let lekcje = JSON.parse(await zapytajSerwer("wybierzPrzedmioty",dane))
+                let lekcje = JSON.parse(await zapytajSerwer("wybierzCalyPlan",dane))
+                console.log(lekcje);
                 (element.querySelectorAll("td")).forEach((td,index2) =>{
                     let wybor = document.createElement("select");
                     przedmioty.forEach(przedmiot =>{
                         let opcje = document.createElement("option");
                         opcje.value = przedmiot.id;
                         opcje.textContent = przedmiot.nazwa;
-                        //if(przedmiot==lekcje[index2]["nazwa"]) opcje.selected = true;
+                        if(lekcje.length==0 && przedmiot.nazwa=="-") opcje.selected = true 
+                        else if(lekcje.length>0 && przedmiot.nazwa==lekcje[index2]["nazwa"] ) opcje.selected = true;
                         wybor.appendChild(opcje);
                     });
                     wybor.id = `lekcja_${index1+1}_${index2}`;
@@ -152,10 +154,9 @@
 
         async function zaladujGodziny() {
             godziny = JSON.parse(await zapytajSerwer("wybierzGodziny"));
-            console.log(godziny)
             godziny.forEach((godzina,index) => {
-
                 document.getElementById(`dataLek${index}`).value = godzina.godzina;
+                document.getElementById(`dataLek${index}`).step = 60;
             });
         }
 
@@ -171,7 +172,7 @@
         
         document.getElementById('scheduleForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            window.location.href = '../dashboard-admin.html';
+            
         });
         zaladujPrzedmioty();
         zaladujKlasy();
